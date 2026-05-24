@@ -77,16 +77,23 @@ button, input {
   z-index: 10;
 }
 
-/* SCREEN 1: LANDING PAGE */
+/* ══════════════════════════════════════════════
+   SCREEN 1: LANDING PAGE — Flexbox Layout
+   Root cause fix: replaced position:absolute layout
+   with flex children to eliminate the gap between
+   the card and ship image across all environments.
+   ══════════════════════════════════════════════ */
 #landing-screen {
   background-color: var(--primary-teal);
-  background-image: 
-    radial-gradient(ellipse 70% 80% at 75% 60%, rgba(53, 107, 127, 0.5) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 80% 85%, rgba(25, 51, 61, 0.6) 0%, transparent 60%);
-  position: relative;
-  width: 100%;
-  height: 100%;
+  background-image:
+    radial-gradient(ellipse 70% 80% at 75% 55%, rgba(53, 107, 127, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 85%, rgba(25, 51, 61, 0.55) 0%, transparent 60%);
+  /* Flex row — card + ship side by side, no gaps */
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
   overflow: hidden;
+  /* Inherit position:absolute from .screen — do NOT re-declare */
 }
 
 #landing-screen::before {
@@ -96,94 +103,48 @@ button, input {
   right: 0;
   width: 65%;
   height: 35%;
-  background: linear-gradient(to top, rgba(19, 42, 50, 0.5) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(19, 42, 50, 0.45) 0%, transparent 100%);
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
-/* Dotted circles background pattern inside card */
+/* Dot pattern — fills left portion of landing background */
 .landing-dots-bg {
   position: absolute;
   top: 0;
   left: 0;
-  width: 250px;
+  width: 100%;
   height: 100%;
-  background-image: radial-gradient(rgba(0, 0, 0, 0.035) 2.5px, transparent 2.5px);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.04) 2px, transparent 2px);
   background-size: 20px 20px;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
+  border-radius: inherit;
 }
 
+/* Hidden original-background ship */
 .landing-right {
-  /* Hidden - replaced by transparent ship overlay on teal bg */
   display: none;
 }
 
-.landing-ship-img {
-  width: 110%;
-  height: 110%;
-  object-fit: contain;
-  object-position: center center;
-  display: block;
-  filter: drop-shadow(-20px 10px 30px rgba(0, 0, 0, 0.45));
-}
-
-.landing-ship-overlay {
-  position: absolute;
-  right: -5%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 62%;
-  height: 110%;
-  z-index: 15;
-  overflow: visible;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-/* Orange horizontal strips inside welcome-card */
-.orange-strip-top {
-  position: absolute;
-  top: -20px;
-  left: 0;
-  width: 320px;
-  height: 20px;
-  background-color: var(--accent-orange);
-  border-radius: 0;
-  z-index: -1;
-}
-
-.orange-strip-bottom {
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  width: 320px;
-  height: 20px;
-  background-color: var(--accent-orange);
-  border-radius: 0;
-  z-index: -1;
-}
-
-/* White card details (flush left, vertically centered) */
+/* ── LEFT: White Info Card (flex child) ── */
 .landing-card {
+  /* Flex item — NOT absolutely positioned */
+  flex: 0 0 auto;
+  align-self: center;
+  width: clamp(280px, 44vw, 560px);
+  min-height: min(600px, 80vh);
+  padding: 55px 65px 55px 80px;
   background-color: var(--bg-white);
-  width: 90%;
-  max-width: 580px;
-  padding: 55px 70px 55px 80px;
-  border-top-right-radius: 70px;
-  border-bottom-right-radius: 70px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  box-shadow: var(--shadow-lg);
+  border-radius: 0 70px 70px 0;
+  box-shadow: 12px 0 40px rgba(0, 0, 0, 0.18), 0 8px 25px rgba(0, 0, 0, 0.1);
+  position: relative;           /* for absolute children inside card */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;             /* clips the dot bg and strips cleanly */
   z-index: 10;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  overflow: visible; /* to allow orange strips to show outside boundaries */
-  animation: slideInFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideInFromLeft 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .landing-card > *:not(.landing-dots-bg):not(.orange-strip-top):not(.orange-strip-bottom) {
@@ -191,31 +152,238 @@ button, input {
   z-index: 2;
 }
 
+/* Orange accent strips on top/bottom edges of card */
+.orange-strip-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 7px;
+  background-color: var(--accent-orange);
+  z-index: 3;
+}
+
+.orange-strip-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 7px;
+  background-color: var(--accent-orange);
+  z-index: 3;
+}
+
+/* Card slide-in — translateX only, no Y offset needed (flexbox handles centering) */
 @keyframes slideInFromLeft {
   0% {
-    transform: translate(-100%, -50%);
+    transform: translateX(-110%);
     opacity: 0;
   }
   100% {
-    transform: translate(0, -50%);
+    transform: translateX(0);
     opacity: 1;
   }
 }
 
-/* Manshu Logo style */
+/* ── RIGHT: Ship Image (flex child, fills remaining space) ── */
+.landing-ship-overlay {
+  /* Flex item — NOT absolutely positioned */
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+  padding: 15px 20px 15px 10px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.landing-ship-img {
+  width: 100%;
+  max-width: 720px;
+  height: 100%;
+  max-height: 95%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  filter: drop-shadow(-18px 10px 30px rgba(0, 0, 0, 0.5));
+}
+
+/* Manshu Logo */
 .logo-container {
   display: flex;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
 }
 
 .logo-img {
-  height: 50px;
+  height: 48px;
   object-fit: contain;
   display: block;
 }
 
+/* Atlantic Region badge */
+.region-badge {
+  background-color: var(--accent-orange);
+  color: var(--text-light);
+  display: inline-block;
+  padding: 4px 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  margin-bottom: 22px;
+}
+
+/* Landing title */
+.landing-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 3vw, 3.1rem);
+  font-weight: 700;
+  color: var(--primary-teal);
+  line-height: 1.15;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
+}
+
+/* Course duration */
+.duration-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  margin-bottom: 38px;
+}
+
+.duration-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--text-dark);
+}
+
+.duration-container strong {
+  font-weight: 700;
+}
+
+/* ENTER Button */
+.btn-enter {
+  background-color: #6fa8dc;
+  color: var(--primary-teal-dark);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  border: none;
+  padding: 13px 44px;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+  align-self: flex-start;
+}
+
+.btn-enter:hover {
+  background-color: #5892c5;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
+}
+
+.btn-enter:active {
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS — Landing Page
+   ══════════════════════════════════════════════ */
+
+/* Large monitor (1400px+): give ship more room */
+@media (min-width: 1400px) {
+  .landing-card {
+    padding: 65px 80px 65px 100px;
+  }
+}
+
+/* Standard desktop (1000-1399px): default styles apply */
+
+/* Small desktop / large tablet (768-999px) */
+@media (max-width: 999px) {
+  .landing-card {
+    width: clamp(260px, 48vw, 480px);
+    padding: 45px 50px 45px 55px;
+    border-radius: 0 50px 50px 0;
+    min-height: min(520px, 75vh);
+  }
+  .landing-title {
+    font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+  }
+}
+
+/* Tablet portrait (600-767px): stack vertically */
+@media (max-width: 767px) {
+  #landing-screen {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+  .landing-card {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: unset;
+    border-radius: 0 0 50px 50px;
+    padding: 40px 36px 36px 40px;
+    align-self: auto;
+    animation: slideInFromTop 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes slideInFromTop {
+    0% { transform: translateY(-60px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  .landing-ship-overlay {
+    flex: 1 0 auto;
+    min-height: 260px;
+    max-height: 42vh;
+    padding: 10px 20px 20px;
+  }
+  .landing-ship-img {
+    max-height: 100%;
+  }
+}
+
+/* Mobile (max 599px) */
+@media (max-width: 599px) {
+  .landing-card {
+    padding: 35px 28px 32px 32px;
+    border-radius: 0 0 38px 38px;
+  }
+  .landing-title {
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+  }
+  .logo-img {
+    height: 40px;
+  }
+  .duration-container {
+    margin-bottom: 28px;
+  }
+  .landing-ship-overlay {
+    min-height: 200px;
+    max-height: 36vh;
+  }
+  .btn-enter {
+    width: 100%;
+    text-align: center;
+    padding: 14px 20px;
+  }
+}
+
+
+/* Shared logo/brand styles (used across other screens) */
 .logo-img-header {
   height: 34px;
   object-fit: contain;
@@ -239,76 +407,6 @@ button, input {
   align-self: flex-end;
   padding-bottom: 4px;
 }
-
-/* Atlantic Region badge */
-.region-badge {
-  background-color: var(--accent-orange);
-  color: var(--text-light);
-  display: inline-block;
-  padding: 4px 12px;
-  font-weight: 600;
-  font-size: 0.85rem;
-  border-radius: 4px;
-  margin-bottom: 25px;
-}
-
-/* Landing titles */
-.landing-title {
-  font-family: var(--font-heading);
-  font-size: 3.1rem;
-  font-weight: 700;
-  color: var(--primary-teal);
-  line-height: 1.15;
-  margin-bottom: 30px;
-  letter-spacing: -0.5px;
-}
-
-/* Course metadata */
-.duration-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-dark);
-  font-size: 0.95rem;
-  margin-bottom: 40px;
-}
-
-.duration-icon {
-  width: 22px;
-  height: 22px;
-  color: var(--text-dark);
-}
-
-.duration-container strong {
-  font-weight: 700;
-}
-
-/* ENTER Button */
-.btn-enter {
-  background-color: #6fa8dc;
-  color: var(--primary-teal-dark);
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-  border: none;
-  padding: 12px 42px;
-  border-radius: 2px;
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-smooth);
-}
-
-.btn-enter:hover {
-  background-color: #5892c5;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.btn-enter:active {
-  transform: translateY(0);
-}
-
 
 /* SCREEN 2: MAIN DASHBOARD SCREEN (STORYLINE PLAYER LAYOUT) */
 #dashboard-screen {
