@@ -1,0 +1,13 @@
+{
+  "name": "manshu-learning-can-course",
+  "version": "1.0.0",
+  "description": "Change Advice Notice Process E-Learning Course - Manshu Learning",
+  "main": "index.html",
+  "scripts": {
+    "dev": "lite-server"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
