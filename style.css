@@ -2215,56 +2215,571 @@ button, input {
 }
 
 
-/* RESPONSIVE LAYOUT adjustments */
-@media (max-width: 992px) {
-  #landing-screen {
-    flex-direction: column-reverse;
+
+
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL RESPONSIVE SYSTEM
+   Breakpoints:
+     Desktop          ≥ 1024px  (default styles above)
+     Small desktop    768–1023px
+     Tablet portrait  480–767px
+     Mobile           ≤ 479px
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Small Desktop / Tablet Landscape (768px – 1023px) ─────── */
+@media (max-width: 1023px) {
+
+  /* ── Player Layout ── */
+  .player-workspace-wrapper {
+    height: calc(100% - 35px);
   }
-  .landing-left {
-    flex: 0 0 60%;
-    width: 100%;
-    justify-content: center;
-  }
-  .landing-right {
-    flex: 0 0 40%;
-    width: 100%;
-  }
-  .landing-card {
-    border-radius: 30px;
-    padding: 35px;
-  }
-  
+
+  /* Sidebar becomes floating overlay drawer */
   .player-sidebar {
     position: absolute;
     left: 0;
     top: 0;
-    height: 100vh;
-    box-shadow: var(--shadow-lg);
+    height: 100%;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.18);
+    z-index: 50;
+    width: 270px;
   }
+
   .player-sidebar.collapsed {
     width: 0;
+    box-shadow: none;
   }
-}
 
-@media (max-width: 768px) {
+  /* Expand button shows when sidebar is collapsed */
+  .btn-sidebar-expand {
+    display: block;
+    left: 8px;
+    top: 12px;
+  }
+
+  /* ── Header ── */
+  .player-header {
+    padding: 0 18px;
+  }
+
+  .player-course-title {
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 55vw;
+  }
+
+  /* ── Slide pane ── */
+  .slide-pane {
+    padding: 30px 35px;
+  }
+
+  /* ── Slide two-col wrappers ── */
   .slide-wrapper {
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
   }
+
   .slide-col-right {
     flex: 1;
     max-width: 100%;
   }
-  .player-header {
-    padding: 0 15px;
+
+  /* ── Split pane slides (Slide 3 style) ── */
+  .slide-wrapper-split {
+    flex-direction: column;
   }
-  .player-course-title {
-    font-size: 1.1rem;
+
+  .split-col-left,
+  .split-col-left-quiz {
+    flex: none;
+    width: 100%;
+    padding: 35px 35px;
   }
-  .player-slide-content {
-    padding: 25px 20px;
+
+  .split-col-right-teal,
+  .split-col-right-quiz-bg {
+    flex: none;
+    width: 100%;
+    min-height: 240px;
+    padding: 30px;
   }
-  .controls-center {
-    display: none; /* Hide progress track on small screens to save space */
+
+  /* ── Quiz ── */
+  .quiz-main-title {
+    font-size: 1.75rem;
+  }
+
+  .quiz-feedback-card {
+    width: 280px;
+    height: 280px;
+  }
+
+  /* ── Notes modal ── */
+  .notes-modal-card {
+    width: 95%;
+    max-width: 600px;
+  }
+
+  .notes-modal-header {
+    padding: 24px 30px 12px;
+  }
+
+  .notes-modal-body {
+    padding: 0 30px 20px;
+  }
+
+  /* ── Utility bar ── */
+  .utility-right {
+    gap: 12px;
   }
 }
+
+/* ── Tablet Portrait (480px – 767px) ──────────────────────── */
+@media (max-width: 767px) {
+
+  /* ── Body / Container ── */
+  body {
+    overflow: hidden;
+  }
+
+  /* ── Utility bar ── */
+  .player-top-utility-bar {
+    padding: 0 12px;
+    height: 32px;
+  }
+
+  .utility-course-title {
+    font-size: 0.65rem;
+    max-width: 40vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .utility-right {
+    gap: 8px;
+  }
+
+  .utility-link-btn {
+    font-size: 0.65rem;
+    letter-spacing: 0.2px;
+  }
+
+  /* ── Player workspace ── */
+  .player-workspace-wrapper {
+    height: calc(100% - 32px);
+    flex-direction: column;
+  }
+
+  /* ── Sidebar ── */
+  .player-sidebar {
+    width: 260px;
+    height: 100%;
+    position: absolute;
+  }
+
+  /* ── Header ── */
+  .player-header {
+    padding: 0 12px;
+    height: 46px;
+  }
+
+  .player-course-title {
+    font-size: 0.95rem;
+    max-width: 50vw;
+  }
+
+  .slide-count-pill {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+  }
+
+  /* ── Controls bar ── */
+  .player-controls {
+    height: 42px;
+    padding: 0 10px;
+  }
+
+  .controls-center {
+    display: none; /* hide seek bar — too narrow */
+  }
+
+  .btn-player-action-icon {
+    padding: 5px;
+  }
+
+  .btn-player-text-nav {
+    font-size: 0.72rem;
+    padding: 5px 7px;
+  }
+
+  /* ── Slide pane ── */
+  .slide-pane {
+    padding: 20px 18px;
+  }
+
+  /* ── Slide titles ── */
+  .slide-main-title {
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+  }
+
+  .slide-col-left p {
+    font-size: 0.88rem;
+  }
+
+  /* ── Two-col slides → single col ── */
+  .slide-wrapper {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .slide-col-right {
+    flex: 1;
+    max-width: 100%;
+  }
+
+  /* ── Split panes → stacked ── */
+  .slide-wrapper-split {
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .slide-pane-split {
+    height: auto;
+  }
+
+  .split-col-left,
+  .split-col-left-quiz {
+    flex: none;
+    width: 100%;
+    padding: 24px 18px;
+  }
+
+  .split-col-right-teal {
+    flex: none;
+    width: 100%;
+    min-height: 200px;
+    padding: 20px;
+  }
+
+  .split-bullet-list li {
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
+
+  /* ── Quiz slides ── */
+  .slide-pane-quiz {
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .quiz-main-title {
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+  }
+
+  .quiz-q-text {
+    font-size: 1rem;
+  }
+
+  .quiz-options-group {
+    margin-left: 0;
+  }
+
+  .btn-quiz-submit {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .split-col-right-quiz-bg {
+    flex: none;
+    width: 100%;
+    min-height: 240px;
+  }
+
+  .quiz-feedback-card {
+    width: 260px;
+    height: 260px;
+    padding: 20px;
+  }
+
+  .feedback-status-title {
+    font-size: 1.5rem;
+  }
+
+  .feedback-explanation {
+    font-size: 0.9rem;
+  }
+
+  /* ── Highlight cards ── */
+  .slide-highlight-card {
+    padding: 18px 20px;
+  }
+
+  /* ── Notes modal ── */
+  .notes-modal-card {
+    width: 98%;
+    border-radius: 6px;
+  }
+
+  .notes-title-text {
+    font-size: 1.7rem;
+  }
+
+  .notes-modal-header {
+    padding: 20px 20px 10px;
+  }
+
+  .notes-modal-body {
+    padding: 0 20px 16px;
+  }
+
+  .notes-modal-body textarea {
+    height: 180px;
+  }
+
+  .notes-modal-subheader-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .btn-notes-print {
+    width: 100%;
+    text-align: center;
+  }
+
+  .notes-modal-footer {
+    padding: 0 20px;
+  }
+
+  /* ── Transcript bubble ── */
+  .transcript-dropdown-bubble {
+    width: calc(100vw - 24px);
+    right: 12px;
+    font-size: 0.78rem;
+  }
+
+  /* ── Nav guide ── */
+  .visual-node {
+    grid-template-columns: 100px 1fr;
+    gap: 12px;
+  }
+}
+
+/* ── Mobile (≤ 479px) ─────────────────────────────────────── */
+@media (max-width: 479px) {
+
+  /* ── Landing screen (already handled in landing breakpoints above) ── */
+
+  /* ── Utility bar ── */
+  .player-top-utility-bar {
+    padding: 0 8px;
+  }
+
+  .utility-course-title {
+    display: none; /* hide title to make room for buttons */
+  }
+
+  .utility-right {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+
+  .utility-link-btn {
+    font-size: 0.6rem;
+  }
+
+  /* ── Header ── */
+  .player-header {
+    padding: 0 10px;
+    height: 44px;
+  }
+
+  .player-header::after {
+    display: none; /* hide decorative dot panel on tiny screens */
+  }
+
+  .player-course-title {
+    font-size: 0.85rem;
+    max-width: 55vw;
+  }
+
+  /* ── Slide pane ── */
+  .slide-pane {
+    padding: 16px 14px;
+  }
+
+  .slide-main-title {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+
+  .slide-col-left p {
+    font-size: 0.82rem;
+    margin-bottom: 10px;
+  }
+
+  /* ── Split col ── */
+  .split-col-left,
+  .split-col-left-quiz {
+    padding: 18px 14px;
+  }
+
+  /* ── Quiz ── */
+  .quiz-main-title {
+    font-size: 1.25rem;
+  }
+
+  .quiz-q-text {
+    font-size: 0.9rem;
+  }
+
+  .quiz-option-text {
+    font-size: 0.9rem;
+  }
+
+  .quiz-q-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .quiz-question-container {
+    gap: 10px;
+  }
+
+  .quiz-feedback-card {
+    width: 220px;
+    height: 220px;
+    padding: 16px;
+  }
+
+  .feedback-circle-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .feedback-circle-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .feedback-status-title {
+    font-size: 1.25rem;
+  }
+
+  .feedback-explanation {
+    font-size: 0.82rem;
+    margin-top: 10px;
+  }
+
+  /* ── Controls ── */
+  .player-controls {
+    height: 40px;
+    padding: 0 6px;
+  }
+
+  .btn-player-text-nav {
+    font-size: 0.65rem;
+    padding: 4px 5px;
+  }
+
+  /* ── Notes modal ── */
+  .notes-title-text {
+    font-size: 1.4rem;
+  }
+
+  .notes-modal-body textarea {
+    height: 140px;
+    font-size: 0.85rem;
+  }
+
+  /* ── Highlight card ── */
+  .slide-highlight-card {
+    padding: 14px 16px;
+    border-radius: 12px;
+  }
+
+  .highlight-bullet-list li {
+    font-size: 0.82rem;
+  }
+
+  /* ── Sidebar ── */
+  .player-sidebar {
+    width: 100vw; /* full-width drawer on mobile */
+  }
+
+  /* ── Nav guide ── */
+  .nav-guide-container {
+    padding: 18px;
+  }
+
+  .visual-node {
+    grid-template-columns: 80px 1fr;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .visual-seek-track {
+    width: 80px;
+  }
+}
+
+/* ── Landscape phone (short viewport) ───────────────────── */
+@media (max-height: 500px) and (orientation: landscape) {
+  #landing-screen {
+    flex-direction: row;
+    overflow-y: auto;
+  }
+
+  .landing-card {
+    min-height: unset;
+    padding: 20px 30px 20px 40px;
+    border-radius: 0 40px 40px 0;
+  }
+
+  .landing-title {
+    font-size: 1.6rem;
+    margin-bottom: 14px;
+  }
+
+  .logo-img {
+    height: 36px;
+  }
+
+  .logo-container {
+    margin-bottom: 12px;
+  }
+
+  .region-badge {
+    margin-bottom: 10px;
+  }
+
+  .duration-container {
+    margin-bottom: 16px;
+  }
+
+  .landing-ship-overlay {
+    max-height: 100vh;
+    padding: 10px;
+  }
+
+  /* Player controls more compact */
+  .player-controls {
+    height: 38px;
+  }
+
+  .player-header {
+    height: 40px;
+  }
+
+  .slide-pane {
+    padding: 14px 18px;
+  }
+}
+
