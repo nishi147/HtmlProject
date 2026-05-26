@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -190,7 +190,6 @@
               <span class="outline-title">Knowledge Check 2</span>
             </div>
             
-            <!--
             <div class="outline-item" id="outline-item-9" onclick="goToSlide(9)">
               <div class="outline-check">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -298,7 +297,6 @@
               </div>
               <span class="outline-title">Congratulations</span>
             </div>
-            -->
           </nav>
         </div>
         
@@ -410,8 +408,6 @@
                   <h4 class="card-highlight-title">Interface Reference:</h4>
                   <ul class="highlight-bullet-list">
                     <li><strong>Left Menu Panel</strong>: Track progress, inspect glossary terms, or download guidelines.</li>
-                    <li><strong>Play / Pause Button</strong>: Hold or resume page audio narration.</li>
-                    <li><strong>Seek Bar Slider</strong>: Displays progression progress of active page.</li>
                     <li><strong>Prev &amp; Next Buttons</strong>: Switch active slides.</li>
                   </ul>
                 </div>
@@ -422,46 +418,14 @@
                     <div class="nav-guide-header">Player Controls Reference</div>
                     
                     <div class="nav-guide-visual">
-                      <div class="visual-node interactive" onclick="togglePlayPauseFromDiagram()">
-                        <div class="visual-control-btn" id="diag-play-pause-btn">
-                          <svg id="diag-play-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 14px; height: 14px;">
-                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                          </svg>
-                          <svg id="diag-pause-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 14px; height: 14px; display: none;">
-                            <rect x="6" y="4" width="4" height="16"></rect>
-                            <rect x="14" y="4" width="4" height="16"></rect>
-                          </svg>
-                        </div>
-                        <span class="visual-label">Play / Pause Narration</span>
-                      </div>
-                      
-                      <div class="visual-node">
-                        <div class="visual-seek-track interactive" id="diag-seek-track" onclick="seekFromDiagram(event)">
-                          <div class="visual-seek-fill" id="diag-seek-fill" style="width: 45%;"></div>
-                          <div class="visual-seek-handle" id="diag-seek-handle" style="left: 45%;"></div>
-                        </div>
-                        <span class="visual-label">Timeline Progress Seek Bar</span>
-                      </div>
-                      
-                      <div class="visual-node interactive" onclick="toggleVolumeFromDiagram()">
-                        <div class="visual-control-btn" id="diag-volume-btn">
-                          <svg id="diag-vol-on-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
-                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-                          </svg>
-                          <svg id="diag-vol-off-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; display: none;">
-                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                            <line x1="23" y1="9" x2="17" y2="15"></line>
-                            <line x1="17" y1="9" x2="23" y2="15"></line>
-                          </svg>
-                        </div>
-                        <span class="visual-label">Narration Volume Toggle</span>
-                      </div>
-                      
                       <div class="visual-node">
                         <div style="display: flex; gap: 8px; flex-shrink: 0;">
-                          <button class="visual-nav-btn interactive" id="diag-prev-btn" onclick="changeSlideRedesign(-1)">PREV</button>
-                          <button class="visual-nav-btn active interactive" id="diag-next-btn" onclick="changeSlideRedesign(1)">NEXT</button>
+                          <button class="visual-nav-btn interactive" id="diag-prev-btn" onclick="changeSlideRedesign(-1)" aria-label="Previous Slide">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px;"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                          </button>
+                          <button class="visual-nav-btn active interactive" id="diag-next-btn" onclick="changeSlideRedesign(1)" aria-label="Next Slide">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px;"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                          </button>
                         </div>
                         <span class="visual-label">Slide Navigation controls</span>
                       </div>
@@ -620,22 +584,49 @@
                 <h3 class="slide-main-title">CAN 100 Process</h3>
                 <p>The CAN 100 process governs standard engineering modifications. Click the timeline steps below to view active checklists:</p>
                 
-                <div class="slide-timeline-mini">
-                  <div class="mini-timeline-item" onclick="triggerSlideInteraction(5, 'step1', this)">
-                    <span class="step-num-circle">1</span>
-                    <strong class="step-title-text">Initiation & Scope</strong>
+                <div class="timeline-track-wrapper">
+                  <div class="timeline-line-connector">
+                    <div class="timeline-line-progress" id="timeline-progress-bar-5"></div>
                   </div>
-                  <div class="mini-timeline-item" onclick="triggerSlideInteraction(5, 'step2', this)">
-                    <span class="step-num-circle">2</span>
-                    <strong class="step-title-text">Engineering Assessment</strong>
-                  </div>
-                  <div class="mini-timeline-item" onclick="triggerSlideInteraction(5, 'step3', this)">
-                    <span class="step-num-circle">3</span>
-                    <strong class="step-title-text">Authorization & Approvals</strong>
+                  <div class="slide-timeline-mini">
+                    <div class="mini-timeline-item" onclick="triggerSlideInteraction(5, 'step1', this)">
+                      <div class="step-icon-container">
+                        <span class="step-num-circle">1</span>
+                        <svg class="step-success-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                      <div class="step-text-container">
+                        <strong class="step-title-text">Initiation & Scope</strong>
+                        <span class="step-status-subtext">Click to inspect checklist</span>
+                      </div>
+                    </div>
+                    
+                    <div class="mini-timeline-item" onclick="triggerSlideInteraction(5, 'step2', this)">
+                      <div class="step-icon-container">
+                        <span class="step-num-circle">2</span>
+                        <svg class="step-success-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                      <div class="step-text-container">
+                        <strong class="step-title-text">Engineering Assessment</strong>
+                        <span class="step-status-subtext">Click to inspect checklist</span>
+                      </div>
+                    </div>
+                    
+                    <div class="mini-timeline-item" onclick="triggerSlideInteraction(5, 'step3', this)">
+                      <div class="step-icon-container">
+                        <span class="step-num-circle">3</span>
+                        <svg class="step-success-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                      <div class="step-text-container">
+                        <strong class="step-title-text">Authorization & Approvals</strong>
+                        <span class="step-status-subtext">Click to inspect checklist</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
-                <p class="slide-lock-warning" id="slide-lock-warning-5" style="color:var(--accent-orange); font-size:0.85rem; font-weight:700; margin-top:15px;">⚠️ Click and read all three process nodes above to proceed.</p>
+                <div class="slide-lock-warning" id="slide-lock-warning-5" style="margin-top: 20px;">
+                  <p class="lock-status-text warning-glow">⚠️ Click and inspect all three timeline nodes above to proceed.</p>
+                </div>
               </div>
               <div class="slide-col-right">
                 <!-- Details view -->
@@ -788,8 +779,6 @@
             </div>
           </section>
 
-          <!--
-[InnerComment: SLIDE 9: CAN 400 Process ]
           <section id="slide-9" class="slide-pane">
             <div class="slide-wrapper">
               <div class="slide-col-left">
@@ -813,7 +802,6 @@
             </div>
           </section>
 
-          [InnerComment: SLIDE 10: CAN 600 Development ]
           <section id="slide-10" class="slide-pane">
             <div class="slide-wrapper">
               <div class="slide-col-left">
@@ -837,7 +825,6 @@
             </div>
           </section>
 
-          [InnerComment: SLIDE 11: Re-Building of CAN P&ID's ]
           <section id="slide-11" class="slide-pane">
             <div class="slide-wrapper">
               <div class="slide-col-left">
@@ -861,10 +848,8 @@
             </div>
           </section>
 
-          [InnerComment: SLIDE 12: Knowledge Check 3 ]
           <section id="slide-12" class="slide-pane slide-pane-split slide-pane-quiz">
             <div class="slide-wrapper-split">
-              [InnerComment: Left Column: white background, question & choices ]
               <div class="split-col-left-quiz">
                 <h3 class="quiz-main-title">Knowledge Check</h3>
                 
@@ -903,14 +888,12 @@
                 <button class="btn-quiz-submit" id="btn-quiz-submit-12" onclick="submitQuizAnswer(12)" disabled>SUBMIT</button>
               </div>
 
-              [InnerComment: Right Column: deep teal background, centered feedback card ]
               <div class="split-col-right-teal split-col-right-quiz-bg">
                 <div class="quiz-right-bg-image" style="background-image: url('assets/drillship.png');"></div>
                 <div class="quiz-right-overlay"></div>
                 
                 <div class="quiz-feedback-card-wrapper" id="feedback-card-wrapper-12">
                   
-                  [InnerComment: CORRECT CARD ]
                   <div class="quiz-feedback-card correct-card" id="quiz-correct-12">
                     <div class="feedback-icon-title-row">
                       <div class="feedback-circle-icon success">
@@ -922,7 +905,6 @@
                     </div>
                   </div>
 
-                  [InnerComment: TRY AGAIN CARD ]
                   <div class="quiz-feedback-card try-again-card" id="quiz-try-again-12">
                     <div class="feedback-icon-title-row">
                       <div class="feedback-circle-icon warning">
@@ -936,7 +918,6 @@
                     <button class="btn-quiz-retry" onclick="retryQuizQuestion(12)">Try Again</button>
                   </div>
 
-                  [InnerComment: INCORRECT CARD ]
                   <div class="quiz-feedback-card incorrect-card" id="quiz-incorrect-12">
                     <div class="feedback-icon-title-row">
                       <div class="feedback-circle-icon failure">
@@ -955,7 +936,6 @@
             </div>
           </section>
 
-          [InnerComment: SLIDE 13: CAN's against Critical Documents ]
           <section id="slide-13" class="slide-pane">
             <div class="slide-wrapper">
               <div class="slide-col-left">
@@ -979,7 +959,6 @@
             </div>
           </section>
 
-          [InnerComment: SLIDE 14: CAN's to Vendor Documents ]
           <section id="slide-14" class="slide-pane">
             <div class="slide-wrapper">
               <div class="slide-col-left">
@@ -1003,7 +982,6 @@
             </div>
           </section>
 
-          [InnerComment: SLIDE 15: Superseding/Void CAN's ]
           <section id="slide-15" class="slide-pane">
             <div class="slide-wrapper">
               <div class="slide-col-left">
@@ -1027,7 +1005,6 @@
             </div>
           </section>
 
-          [InnerComment: SLIDE 16: Incorporating CAN's into Parent Document ]
           <section id="slide-16" class="slide-pane">
             <div class="slide-wrapper">
               <div class="slide-col-left">
@@ -1051,7 +1028,6 @@
             </div>
           </section>
 
-          [InnerComment: SLIDE 17: CAN Revision Types ]
           <section id="slide-17" class="slide-pane">
             <div class="slide-wrapper">
               <div class="slide-col-left">
@@ -1074,7 +1050,6 @@
             </div>
           </section>
 
-          [InnerComment: SLIDE 18: CAN Revision Number ]
           <section id="slide-18" class="slide-pane">
             <div class="slide-wrapper">
               <div class="slide-col-left">
@@ -1098,10 +1073,8 @@
             </div>
           </section>
 
-          [InnerComment: SLIDE 19: Knowledge Check 4 ]
           <section id="slide-19" class="slide-pane slide-pane-split slide-pane-quiz">
             <div class="slide-wrapper-split">
-              [InnerComment: Left Column: white background, question & choices ]
               <div class="split-col-left-quiz">
                 <h3 class="quiz-main-title">Knowledge Check</h3>
                 
@@ -1140,14 +1113,12 @@
                 <button class="btn-quiz-submit" id="btn-quiz-submit-19" onclick="submitQuizAnswer(19)" disabled>SUBMIT</button>
               </div>
 
-              [InnerComment: Right Column: deep teal background, centered feedback card ]
               <div class="split-col-right-teal split-col-right-quiz-bg">
                 <div class="quiz-right-bg-image" style="background-image: url('assets/drillship.png');"></div>
                 <div class="quiz-right-overlay"></div>
                 
                 <div class="quiz-feedback-card-wrapper" id="feedback-card-wrapper-19">
                   
-                  [InnerComment: CORRECT CARD ]
                   <div class="quiz-feedback-card correct-card" id="quiz-correct-19">
                     <div class="feedback-icon-title-row">
                       <div class="feedback-circle-icon success">
@@ -1159,7 +1130,6 @@
                     </div>
                   </div>
 
-                  [InnerComment: TRY AGAIN CARD ]
                   <div class="quiz-feedback-card try-again-card" id="quiz-try-again-19">
                     <div class="feedback-icon-title-row">
                       <div class="feedback-circle-icon warning">
@@ -1173,7 +1143,6 @@
                     <button class="btn-quiz-retry" onclick="retryQuizQuestion(19)">Try Again</button>
                   </div>
 
-                  [InnerComment: INCORRECT CARD ]
                   <div class="quiz-feedback-card incorrect-card" id="quiz-incorrect-19">
                     <div class="feedback-icon-title-row">
                       <div class="feedback-circle-icon failure">
@@ -1192,12 +1161,10 @@
             </div>
           </section>
 
-          [InnerComment: SLIDE 20: Congratulations (Certificate) ]
           <section id="slide-20" class="slide-pane">
             <div class="slide-wrapper">
               <div class="slide-col-left" style="flex: 0 0 100%;">
                 
-                [InnerComment: Setup card (Hidden if name exists or certificate displays) ]
                 <div id="cert-setup-container" style="max-width:500px; margin:0 auto; text-align:center; padding:30px; background-color:white; border-radius:12px; box-shadow:var(--shadow-sm); border:1px solid rgba(0,0,0,0.06);">
                   <div class="completion-badge">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:40px; height:40px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -1209,7 +1176,6 @@
                   <button class="quiz-submit-btn" id="btn-generate-cert" onclick="generateFinalCertificate()" disabled>GENERATE CERTIFICATE</button>
                 </div>
                 
-                [InnerComment: Dynamic Certificate Frame (Hidden Initially) ]
                 <div class="certificate-frame" id="final-certificate-box" style="display:none; max-width: 650px; margin: 0 auto;">
                   <div class="cert-logo">
                     <img class="logo-img-cert" src="assets/logo.png" alt="Manshu Logo">
@@ -1243,7 +1209,6 @@
                     </div>
                   </div>
                   
-                  [InnerComment: Certificate Actions ]
                   <div style="display:flex; justify-content:center; gap:15px; margin-top:35px;" class="cert-actions-hide">
                     <button class="btn-cert-action secondary" onclick="window.print()">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px; height:16px;"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
@@ -1259,90 +1224,18 @@
               </div>
             </div>
           </section>
--->
 
         </main>
         
         <!-- PLAYER CONTROL FOOTER BAR -->
         <footer class="player-controls">
-          <!-- Play / Pause -->
-          <div class="controls-left">
-            <button class="btn-player-action-icon" id="btn-play-pause" onclick="togglePlayPause()" aria-label="Play Narration">
-              <!-- Play icon -->
-              <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px;">
-                <polygon points="6 4 20 12 6 20 6 4"></polygon>
-              </svg>
-              <!-- Pause icon (Hidden initially) -->
-              <svg id="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px; display:none;">
-                <rect x="5" y="4" width="4" height="16"></rect>
-                <rect x="15" y="4" width="4" height="16"></rect>
-              </svg>
-            </button>
-          </div>
-          
-          <!-- Seek Timeline progress slider -->
-          <div class="controls-center" style="margin-left: 10px; margin-right: 15px;">
-            <div class="seek-track" id="seek-track-bar" onclick="seekSlideTimeline(event)">
-              <div class="seek-fill" id="seek-fill-progress"></div>
-              <div class="seek-handle" id="seek-handle-node"></div>
-            </div>
-          </div>
-          
-          <!-- Control Actions: Replay, Mute, CC, Settings, Fullscreen, Prev, Next -->
-          <div class="controls-right" style="gap: 8px;">
-            <!-- Replay -->
-            <button class="btn-player-action-icon" id="btn-replay" onclick="replaySlide()" aria-label="Replay slide">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
-                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
-              </svg>
-            </button>
-            
-            <!-- Sound toggle -->
-            <button class="btn-player-action-icon" id="btn-volume-toggle" onclick="toggleVolume()" aria-label="Mute sound">
-              <svg id="vol-on-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-              </svg>
-              <svg id="vol-off-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px; display:none;">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <line x1="23" y1="9" x2="17" y2="15"></line>
-                <line x1="17" y1="9" x2="23" y2="15"></line>
-              </svg>
-            </button>
-
-            <!-- Closed Caption (CC) -->
-            <button class="btn-player-action-icon" id="btn-cc-toggle" onclick="toggleTranscript()" aria-label="Toggle transcript">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
-                <rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect>
-                <path d="M7 10h2v4H7zm8 0h2v4h-2z"></path>
-              </svg>
-            </button>
-
-            <!-- Settings -->
-            <button class="btn-player-action-icon" id="btn-settings" onclick="showSettings()" aria-label="Settings">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-              </svg>
-            </button>
-
-            <!-- Fullscreen -->
-            <button class="btn-player-action-icon" id="btn-fullscreen" onclick="toggleFullscreen()" aria-label="Toggle Fullscreen">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
-                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-              </svg>
-            </button>
-            
-            <div style="width: 1px; height: 18px; background-color: #e0e0e0; margin: 0 4px;"></div>
-            
+          <div class="controls-right" style="width: 100%; justify-content: flex-end; gap: 15px; display: flex; align-items: center;">
             <!-- Navigation -->
-            <button class="btn-player-text-nav" id="btn-prev-slide" onclick="changeSlideRedesign(-1)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px; margin-right: 4px;"><polyline points="15 18 9 12 15 6"></polyline></svg>
-              <span>PREV</span>
+            <button class="btn-player-nav-premium" id="btn-prev-slide" onclick="changeSlideRedesign(-1)" aria-label="Previous slide">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
-            <button class="btn-player-text-nav" id="btn-next-slide" onclick="changeSlideRedesign(1)">
-              <span>NEXT</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px; margin-left: 4px;"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <button class="btn-player-nav-premium" id="btn-next-slide" onclick="changeSlideRedesign(1)" aria-label="Next slide">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
           </div>
         </footer>
@@ -1461,6 +1354,11 @@
   <!-- Toast Notification Container -->
   <div id="toast-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none;"></div>
 
-  <script src="app.js"></script>
+  <!-- Modular Course Scripts -->
+  <script src="js/state.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/cert.js"></script>
+  <script src="js/slides.js"></script>
+  <script src="js/player.js"></script>
 </body>
 </html>

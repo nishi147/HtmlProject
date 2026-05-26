@@ -876,29 +876,54 @@ button, input {
   gap: 8px;
 }
 
-.btn-player-text-nav {
-  background: none;
+/* PREMIUM NAVIGATION BUTTONS */
+.btn-player-nav-premium {
   border: none;
-  font-family: var(--font-heading);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #4b6b7a;
+  background: none;
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 6px 10px;
-  transition: var(--transition-fast);
-  text-decoration: none;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
   user-select: none;
 }
 
-.btn-player-text-nav:hover:not(:disabled) {
-  color: var(--accent-orange);
+#btn-prev-slide {
+  border: 2px solid #eef1f3;
+  color: #4b6b7a;
+  background-color: transparent;
 }
 
-.btn-player-text-nav:disabled {
-  color: #c0c8cc;
+#btn-prev-slide:hover:not(:disabled) {
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
+  transform: translateX(-3px);
+  box-shadow: 0 4px 10px rgba(242, 101, 34, 0.15);
+}
+
+#btn-next-slide {
+  background-color: var(--accent-orange);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(242, 101, 34, 0.3);
+}
+
+#btn-next-slide:hover:not(:disabled) {
+  background-color: var(--accent-orange-hover);
+  transform: translateX(3px);
+  box-shadow: 0 6px 16px rgba(242, 101, 34, 0.45);
+}
+
+.btn-player-nav-premium:disabled {
+  background-color: #f5f7f8 !important;
+  border-color: #eef1f3 !important;
+  color: #c0c8cc !important;
   cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 
@@ -1011,7 +1036,7 @@ button, input {
   content: '';
   position: absolute;
   top: -8px;
-  right: 175px;
+  right: var(--transcript-arrow-right, 175px);
   width: 14px;
   height: 14px;
   background-color: #ffffff;
@@ -2158,14 +2183,16 @@ button, input {
 }
 
 .visual-nav-btn {
-  padding: 6px 14px;
-  font-size: 0.75rem;
-  font-weight: 700;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 50%;
   color: var(--primary-teal);
   border: 1.5px solid var(--primary-teal);
   background-color: #ffffff;
-  border-radius: 3px;
-  letter-spacing: 0.5px;
   user-select: none;
   transition: all 0.2s ease;
 }
@@ -2783,3 +2810,661 @@ button, input {
   }
 }
 
+
+/* ==========================================================================
+   Timeline slide 5 improvements (Design and Animations)
+   ========================================================================== */
+
+/* Modern vertical timeline track wrapper */
+.timeline-track-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 25px;
+}
+
+/* Vertical track connector */
+.timeline-line-connector {
+  position: absolute;
+  left: 27px; /* Matches center of .step-icon-container left-positioning */
+  top: 24px;
+  bottom: 24px;
+  width: 3px;
+  background-color: #e0e5eb;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+/* Vertical track fill progress bar */
+.timeline-line-progress {
+  width: 100%;
+  height: 0%;
+  background-color: var(--accent-orange);
+  border-radius: 4px;
+  transition: height 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Slide timeline flex layout adjustments */
+.slide-timeline-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Generous gap for neat spacing */
+  position: relative;
+  z-index: 2; /* Sits cleanly over track line */
+}
+
+/* Glassmorphic timeline item design */
+.mini-timeline-item {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1.5px solid #eef0f4;
+  border-radius: 12px;
+  padding: 14px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.01);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover dynamic slide and border glow */
+.mini-timeline-item:hover {
+  border-color: var(--primary-teal-bright);
+  background-color: #f7fafc;
+  transform: translateX(6px);
+  box-shadow: 0 8px 16px -2px rgba(36,76,90,0.06);
+}
+
+/* Clicked / Active timeline state with left border indicator */
+.mini-timeline-item.clicked {
+  border-color: var(--accent-orange);
+  background-color: rgba(242, 101, 34, 0.03);
+  box-shadow: 0 8px 20px -4px rgba(242,101,34,0.12);
+  transform: translateX(10px);
+}
+
+/* Step icon and number wrappers */
+.step-icon-container {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  margin-right: 18px;
+  flex-shrink: 0;
+}
+
+/* Step number circle design */
+.step-num-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--primary-teal);
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Step visited checkmark design */
+.step-success-check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #24ac7d;
+  color: #ffffff;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.5) rotate(-45deg);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 2px 5px rgba(36,172,125,0.3);
+}
+
+/* Active clicked circle changes */
+.mini-timeline-item.clicked .step-num-circle {
+  background-color: var(--accent-orange);
+  transform: scale(1.05);
+}
+
+/* Visited circle checkmark animation trigger */
+.mini-timeline-item.visited .step-num-circle {
+  opacity: 0;
+  transform: scale(0.4);
+}
+
+.mini-timeline-item.visited .step-success-check {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* Text and subtitle labels */
+.step-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.step-title-text {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--primary-teal-dark);
+  transition: color 0.2s ease;
+}
+
+.mini-timeline-item.clicked .step-title-text {
+  color: var(--accent-orange-hover);
+}
+
+.step-status-subtext {
+  font-size: 0.72rem;
+  color: #8c9ba5;
+  font-weight: 500;
+}
+
+.mini-timeline-item.clicked .step-status-subtext {
+  color: var(--accent-orange);
+}
+
+.mini-timeline-item.visited:not(.clicked) .step-status-subtext {
+  color: #24ac7d;
+}
+
+/* Warning alert lock pill */
+.lock-status-text {
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+}
+
+.warning-glow {
+  background-color: rgba(242, 101, 34, 0.07);
+  color: var(--accent-orange);
+  border: 1.5px solid rgba(242, 101, 34, 0.15);
+  animation: pulseWarning 2s infinite ease-in-out;
+}
+
+.success-glow {
+  background-color: rgba(36, 172, 125, 0.08);
+  color: #1e8560;
+  border: 1.5px solid rgba(36, 172, 125, 0.2);
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes pulseWarning {
+  0% { transform: scale(1); box-shadow: 0 2px 4px rgba(242,101,34,0.02); }
+  50% { transform: scale(1.01); box-shadow: 0 4px 10px rgba(242,101,34,0.06); }
+  100% { transform: scale(1); box-shadow: 0 2px 4px rgba(242,101,34,0.02); }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ──────────────────────────────────────────
+   Premium detail card CSS templates
+   ────────────────────────────────────────── */
+
+/* Active container layout */
+.step-detail-active {
+  background-color: #ffffff !important;
+  border: 1.5px solid #eef1f5 !important;
+  box-shadow: 0 10px 30px rgba(36,76,90,0.07) !important;
+  border-radius: 16px !important;
+  min-height: 240px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+  overflow: hidden !important;
+  padding: 30px !important;
+}
+
+/* Animation definition */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-slide-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  width: 100%;
+}
+
+.premium-detail-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Header badge styling */
+.detail-card-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.detail-card-badge.initiation {
+  background-color: rgba(242, 101, 34, 0.08);
+  color: var(--accent-orange-hover);
+}
+
+.detail-card-badge.assessment {
+  background-color: rgba(53, 107, 127, 0.1);
+  color: var(--primary-teal-light);
+}
+
+.detail-card-badge.approvals {
+  background-color: rgba(36, 172, 125, 0.1);
+  color: #1e8560;
+}
+
+.detail-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  color: var(--primary-teal-dark);
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+}
+
+.detail-card-description {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 18px;
+}
+
+/* Divider divider line */
+.detail-card-section {
+  border-top: 1px solid #f0f3f6;
+  padding-top: 15px;
+  margin-bottom: 20px;
+}
+
+.section-subtitle-text {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #8c9ba5;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Deliverable list */
+.checklist-deliverables {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+}
+
+.checklist-deliverables li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: var(--text-dark);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.checklist-check-icon {
+  width: 14px;
+  height: 14px;
+  color: #24ac7d;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Role panel badge block */
+.detail-card-role-panel {
+  display: flex;
+  align-items: center;
+  background-color: #f7fafc;
+  border-left: 3.5px solid var(--accent-orange);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-top: 5px;
+}
+
+.role-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(242, 101, 34, 0.08);
+  color: var(--accent-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+.role-avatar svg {
+  width: 16px;
+  height: 16px;
+}
+
+.role-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.role-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #8c9ba5;
+}
+
+.role-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary-teal-dark);
+}
+
+
+/* ==========================================================================
+   Premium Slide Info Panel — Right-column card component (Slides 6,7,9-18)
+   ========================================================================== */
+
+.slide-info-panel {
+  border-radius: 18px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border: 1.5px solid transparent;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: panelFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.slide-info-panel:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px -8px rgba(0,0,0,0.1);
+}
+
+/* Decorative background orb */
+.slide-info-panel::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  opacity: 0.12;
+  transition: transform 0.4s ease;
+}
+
+.slide-info-panel:hover::before {
+  transform: scale(1.15);
+}
+
+/* Second decorative orb */
+.slide-info-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  opacity: 0.07;
+}
+
+/* ── Color Variants ─────────────────────── */
+
+/* Rose / Pink — alarm & software risk */
+.slide-info-panel.ip-rose {
+  background: linear-gradient(145deg, #fff1f3 0%, #fce8ed 100%);
+  border-color: rgba(244, 63, 94, 0.12);
+  box-shadow: 0 8px 24px -4px rgba(244, 63, 94, 0.06);
+}
+.slide-info-panel.ip-rose::before { background: #f43f5e; }
+.slide-info-panel.ip-rose::after  { background: #fb7185; }
+.slide-info-panel.ip-rose .sip-icon-ring { background: rgba(244, 63, 94, 0.1); color: #e11d48; }
+.slide-info-panel.ip-rose .sip-title     { color: #9f1239; }
+
+/* Sky / Blue — procedural, vendor, revision */
+.slide-info-panel.ip-sky {
+  background: linear-gradient(145deg, #f0f7ff 0%, #dbeafe 100%);
+  border-color: rgba(59, 130, 246, 0.12);
+  box-shadow: 0 8px 24px -4px rgba(59, 130, 246, 0.06);
+}
+.slide-info-panel.ip-sky::before { background: #3b82f6; }
+.slide-info-panel.ip-sky::after  { background: #60a5fa; }
+.slide-info-panel.ip-sky .sip-icon-ring { background: rgba(59, 130, 246, 0.1); color: #1d4ed8; }
+.slide-info-panel.ip-sky .sip-title     { color: #1e3a8a; }
+
+/* Mint / Green — offshore operations, master library */
+.slide-info-panel.ip-mint {
+  background: linear-gradient(145deg, #f0fdf4 0%, #dcfce7 100%);
+  border-color: rgba(34, 197, 94, 0.12);
+  box-shadow: 0 8px 24px -4px rgba(34, 197, 94, 0.06);
+}
+.slide-info-panel.ip-mint::before { background: #22c55e; }
+.slide-info-panel.ip-mint::after  { background: #4ade80; }
+.slide-info-panel.ip-mint .sip-icon-ring { background: rgba(34, 197, 94, 0.1); color: #15803d; }
+.slide-info-panel.ip-mint .sip-title     { color: #14532d; }
+
+/* Amber / Yellow — drawing integrity, change scope */
+.slide-info-panel.ip-amber {
+  background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 100%);
+  border-color: rgba(245, 158, 11, 0.12);
+  box-shadow: 0 8px 24px -4px rgba(245, 158, 11, 0.06);
+}
+.slide-info-panel.ip-amber::before { background: #f59e0b; }
+.slide-info-panel.ip-amber::after  { background: #fbbf24; }
+.slide-info-panel.ip-amber .sip-icon-ring { background: rgba(245, 158, 11, 0.1); color: #b45309; }
+.slide-info-panel.ip-amber .sip-title     { color: #78350f; }
+
+/* Purple — vendor integration */
+.slide-info-panel.ip-purple {
+  background: linear-gradient(145deg, #f5f3ff 0%, #ede9fe 100%);
+  border-color: rgba(139, 92, 246, 0.12);
+  box-shadow: 0 8px 24px -4px rgba(139, 92, 246, 0.06);
+}
+.slide-info-panel.ip-purple::before { background: #8b5cf6; }
+.slide-info-panel.ip-purple::after  { background: #a78bfa; }
+.slide-info-panel.ip-purple .sip-icon-ring { background: rgba(139, 92, 246, 0.1); color: #6d28d9; }
+.slide-info-panel.ip-purple .sip-title     { color: #4c1d95; }
+
+/* Teal — audit trail, onshore */
+.slide-info-panel.ip-teal {
+  background: linear-gradient(145deg, #f0fdfa 0%, #ccfbf1 100%);
+  border-color: rgba(20, 184, 166, 0.12);
+  box-shadow: 0 8px 24px -4px rgba(20, 184, 166, 0.06);
+}
+.slide-info-panel.ip-teal::before { background: #14b8a6; }
+.slide-info-panel.ip-teal::after  { background: #2dd4bf; }
+.slide-info-panel.ip-teal .sip-icon-ring { background: rgba(20, 184, 166, 0.1); color: #0f766e; }
+.slide-info-panel.ip-teal .sip-title     { color: #134e4a; }
+
+/* ── Inner Elements ─────────────────────── */
+
+.sip-icon-ring {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-info-panel:hover .sip-icon-ring {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.sip-icon-ring svg {
+  width: 24px;
+  height: 24px;
+}
+
+.sip-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.sip-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+
+.sip-desc {
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: #4b5563;
+  max-width: 95%;
+}
+
+/* ── Certificate Slide Premium Styles ───── */
+
+.cert-slide-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px 0;
+}
+
+.cert-setup-card {
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  padding: 40px 36px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px -4px rgba(36, 76, 90, 0.1), 0 2px 8px rgba(0,0,0,0.04);
+  border: 1.5px solid rgba(36, 76, 90, 0.06);
+  animation: panelFadeIn 0.5s both;
+}
+
+.cert-completion-badge {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, var(--accent-orange) 0%, #f59e0b 100%);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  box-shadow: 0 8px 20px -4px rgba(242, 101, 34, 0.4);
+}
+
+.cert-completion-badge svg {
+  width: 36px;
+  height: 36px;
+  color: white;
+}
+
+.cert-setup-title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-teal-dark);
+  margin-bottom: 10px;
+}
+
+.cert-setup-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 28px;
+}
+
+.cert-name-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background: #f8fafc;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.cert-name-input:focus {
+  outline: none;
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 3px rgba(242, 101, 34, 0.1);
+  background: #fff;
+}
+
+.cert-generate-btn {
+  width: 100%;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, var(--accent-orange) 0%, #ea6530 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px -2px rgba(242, 101, 34, 0.3);
+}
+
+.cert-generate-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(242, 101, 34, 0.4);
+}
+
+.cert-generate-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
