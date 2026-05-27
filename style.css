@@ -974,8 +974,8 @@ button, input {
 /* TOP UTILITY BAR STYLING */
 .player-top-utility-bar {
   height: 35px;
-  background-color: var(--primary-teal-dark);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -988,7 +988,7 @@ button, input {
 .utility-course-title {
   font-size: 0.75rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.65);
+  color: #1e293b;
   font-family: var(--font-body);
 }
 
@@ -1003,7 +1003,7 @@ button, input {
   border: none;
   font-size: 0.75rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.85);
+  color: #475569;
   cursor: pointer;
   transition: var(--transition-fast);
   letter-spacing: 0.5px;
@@ -1721,6 +1721,14 @@ button, input {
 
 .quiz-feedback-card.incorrect-card {
   border: 6px solid #e74c3c;
+}
+
+.feedback-icon-title-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .feedback-circle-icon {
@@ -3468,3 +3476,386 @@ button, input {
   cursor: not-allowed;
   transform: none;
 }
+
+/* ─────────────────────────────────────────────
+   CAN 400 INTERACTIVE SIMULATOR STYLING
+   ───────────────────────────────────────────── */
+.can400-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.sim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.sim-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.sim-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: #cbd5e1;
+}
+
+.sim-card.completed-state {
+  border-color: #bbf7d0;
+  background-color: #f8fafc;
+}
+
+.sim-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-teal);
+  margin-bottom: 5px;
+}
+
+.sim-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 15px;
+}
+
+/* Digital Gauge Component */
+.gauge-outer {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f8fafc 60%, #e2e8f0 100%);
+  border: 4px solid #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 15px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.gauge-outer.active-gauge {
+  border-color: var(--accent-orange);
+  background: radial-gradient(circle, #fffaf5 60%, #ffe3d1 100%);
+}
+
+.gauge-outer.approved-gauge {
+  border-color: #10b981;
+  background: radial-gradient(circle, #f0fdf4 60%, #d1fae5 100%);
+}
+
+.gauge-readout {
+  font-family: monospace;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #334155;
+  letter-spacing: -0.5px;
+}
+
+.gauge-readout.active-glow {
+  color: var(--accent-orange);
+  text-shadow: 0 0 6px rgba(242, 101, 34, 0.25);
+}
+
+.gauge-readout.approved-glow {
+  color: #10b981;
+  text-shadow: 0 0 6px rgba(16, 185, 129, 0.25);
+}
+
+.gauge-unit {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-top: -2px;
+}
+
+.gauge-status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  margin-top: 5px;
+}
+
+.gauge-status-badge.pending {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.gauge-status-badge.approved {
+  background-color: #d1fae5;
+  color: #059669;
+}
+
+/* PLC Simulation Component */
+.plc-board {
+  width: 100%;
+  max-width: 220px;
+  background-color: #1e293b;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  border: 2px solid #334155;
+}
+
+.plc-led-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  justify-items: center;
+}
+
+.plc-led-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.plc-led {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #475569;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+  transition: all 0.2s ease;
+}
+
+.plc-led.red.glowing {
+  background-color: #ef4444;
+  box-shadow: 0 0 10px #ef4444, inset 0 1px 2px rgba(255,255,255,0.4);
+}
+
+.plc-led.green.glowing {
+  background-color: #10b981;
+  box-shadow: 0 0 10px #10b981, inset 0 1px 2px rgba(255,255,255,0.4);
+}
+
+.plc-led-label {
+  font-size: 0.55rem;
+  color: #94a3b8;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.sim-action-btn {
+  border: none;
+  background-color: var(--primary-teal);
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+  width: 100%;
+  outline: none;
+}
+
+.sim-action-btn:hover:not(:disabled) {
+  background-color: var(--primary-teal-light);
+}
+
+.sim-action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@keyframes pulse-btn {
+  0% { box-shadow: 0 0 0 0 rgba(242, 101, 34, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(242, 101, 34, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(242, 101, 34, 0); }
+}
+
+.sim-action-btn.pulsing {
+  background-color: var(--accent-orange);
+  animation: pulse-btn 2s infinite;
+}
+
+.sim-action-btn.pulsing:hover {
+  background-color: var(--accent-orange-hover);
+}
+
+.sim-action-btn.completed {
+  background-color: #10b981 !important;
+  color: white !important;
+  cursor: default;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+/* Progress bar inside card */
+.card-progress-wrapper {
+  width: 100%;
+  margin-top: 15px;
+  display: none;
+}
+
+.card-progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-progress-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--accent-orange);
+}
+
+.card-progress-text {
+  font-size: 0.7rem;
+  color: var(--accent-orange);
+  font-weight: 700;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Right Panel Checklist Overhauls */
+.unlocked-reveal-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+  justify-content: flex-start;
+}
+
+.placeholder-deck-card {
+  border: 2px dashed #cbd5e1;
+  border-radius: 16px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #64748b;
+  min-height: 250px;
+  height: 100%;
+}
+
+.placeholder-deck-card svg {
+  width: 48px;
+  height: 48px;
+  color: #94a3b8;
+  margin-bottom: 12px;
+  stroke-dasharray: 4 4;
+}
+
+.placeholder-deck-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--primary-teal);
+}
+
+.placeholder-deck-desc {
+  font-size: 0.8rem;
+  max-width: 250px;
+}
+
+/* Premium Reveal Cards */
+.reveal-card {
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: none;
+  animation: cardFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-card.active {
+  display: block;
+}
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal-card.orange-theme {
+  background-color: rgba(242, 101, 34, 0.05);
+  border-left: 5px solid var(--accent-orange);
+  border: 1px solid rgba(242, 101, 34, 0.15);
+  border-left: 5px solid var(--accent-orange);
+}
+
+.reveal-card.rose-theme {
+  background-color: rgba(244, 63, 94, 0.05);
+  border: 1px solid rgba(244, 63, 94, 0.15);
+  border-left: 5px solid #f43f5e;
+}
+
+.reveal-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.reveal-card-header svg {
+  width: 18px;
+  height: 18px;
+}
+
+.reveal-card.orange-theme .reveal-card-header svg { color: var(--accent-orange); }
+.reveal-card.rose-theme .reveal-card-header svg { color: #f43f5e; }
+
+.reveal-card-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-teal);
+}
+
+.reveal-card-bullet-list {
+  list-style: none;
+}
+
+.reveal-card-bullet-list li {
+  font-size: 0.8rem;
+  color: #334155;
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 18px;
+  line-height: 1.45;
+}
+
+.reveal-card-bullet-list li:last-child {
+  margin-bottom: 0;
+}
+
+.reveal-card-bullet-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  font-weight: 800;
+}
+
+.reveal-card.orange-theme .reveal-card-bullet-list li::before { color: var(--accent-orange); }
+.reveal-card.rose-theme .reveal-card-bullet-list li::before { color: #f43f5e; }

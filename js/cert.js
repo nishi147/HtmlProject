@@ -21,18 +21,20 @@ function generateFinalCertificate() {
   document.getElementById('cert-setup-container').style.display = 'none';
   document.getElementById('final-certificate-box').style.display = 'block';
 
-  markSlideComplete(20);
+  markSlideComplete(19);
 }
 
 function restartCourseRedesign() {
   slideCompleted = Array(totalSlides).fill(false);
   slideCompleted[0] = true;
-  slideCompleted[1] = true;
 
-  slideInteractions = { 5: { step1: false, step2: false, step3: false } };
+  slideInteractions = {
+    4: { step1: false, step2: false, step3: false },
+    8: { alarmReviewed: false, hilTested: false }
+  };
 
-  selectedQuizChoices = { 4: null, 8: null, 12: null, 19: null };
-  quizAttempts        = { 4: 0,    8: 0,    12: 0,    19: 0    };
+  selectedQuizChoices = { 3: null, 7: null, 11: null, 18: null };
+  quizAttempts        = { 3: 0,    7: 0,    11: 0,    18: 0    };
 
   // Reset quiz DOM
   document.querySelectorAll('.quiz-option-row').forEach(row => row.classList.remove('selected', 'disabled'));
@@ -47,17 +49,17 @@ function restartCourseRedesign() {
   // Reset sidebar outline
   document.querySelectorAll('.outline-item').forEach((node, idx) => {
     node.classList.remove('completed', 'active');
-    if (idx === 0 || idx === 1) node.classList.add('completed');
+    if (idx === 0) node.classList.add('completed');
   });
 
-  // Reset timeline slide
+  // Reset timeline slide 4
   document.querySelectorAll('.mini-timeline-item').forEach(item => {
     item.classList.remove('clicked', 'visited');
   });
-  const progressBar = document.getElementById('timeline-progress-bar-5');
+  const progressBar = document.getElementById('timeline-progress-bar-4');
   if (progressBar) progressBar.style.height = '0%';
 
-  const lockWarning = document.getElementById('slide-lock-warning-5');
+  const lockWarning = document.getElementById('slide-lock-warning-4');
   if (lockWarning) {
     lockWarning.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Click and inspect all three timeline nodes above to proceed.</p>`;
     lockWarning.style.display = 'block';
@@ -66,6 +68,65 @@ function restartCourseRedesign() {
   if (detailBox) {
     detailBox.innerHTML = 'Click on a workflow timeline node to inspect roles and checklist details.';
     detailBox.className = '';
+  }
+
+  // Reset slide 8 interactive dashboard DOM elements
+  const gauge = document.getElementById('gauge-node-400');
+  const val = document.getElementById('gauge-val-400');
+  const badge = document.getElementById('gauge-badge-400');
+  const cardAlarm = document.getElementById('sim-card-alarm');
+  const btnAlarm = document.getElementById('btn-sim-alarm');
+  
+  if (gauge) gauge.className = 'gauge-outer active-gauge';
+  if (val) {
+    val.className = 'gauge-readout active-glow';
+    val.innerText = '85.2';
+  }
+  if (badge) {
+    badge.className = 'gauge-status-badge pending';
+    badge.innerText = 'Pending Review';
+  }
+  if (cardAlarm) cardAlarm.classList.remove('completed-state');
+  if (btnAlarm) {
+    btnAlarm.disabled = false;
+    btnAlarm.innerText = 'BOARD REVIEW & APPROVE';
+    btnAlarm.className = 'sim-action-btn pulsing';
+  }
+
+  const cardHil = document.getElementById('sim-card-hil');
+  const btnHil = document.getElementById('btn-sim-hil');
+  const wrapper = document.getElementById('progress-wrapper-hil');
+  const fill = document.getElementById('progress-fill-hil');
+  const txt = document.getElementById('progress-text-hil');
+  
+  if (cardHil) cardHil.classList.remove('completed-state');
+  if (btnHil) {
+    btnHil.disabled = false;
+    btnHil.innerText = 'RUN HIL SIMULATION';
+    btnHil.className = 'sim-action-btn pulsing';
+  }
+  if (wrapper) wrapper.style.display = 'none';
+  if (fill) fill.style.width = '0%';
+  if (txt) {
+    txt.innerText = 'Test Pending...';
+    txt.style.color = '';
+  }
+
+  document.querySelectorAll('.plc-led').forEach(led => {
+    led.className = 'plc-led';
+  });
+
+  const reveal1 = document.getElementById('reveal-card-gatekeeping');
+  if (reveal1) reveal1.classList.remove('active');
+  const reveal2 = document.getElementById('reveal-card-risk');
+  if (reveal2) reveal2.classList.remove('active');
+  const placeholder = document.getElementById('placeholder-deck-card');
+  if (placeholder) placeholder.style.display = 'flex';
+
+  const warning8 = document.getElementById('slide-lock-warning-8');
+  if (warning8) {
+    warning8.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Complete both DCS alarm board review and HIL simulator testing to proceed.</p>`;
+    warning8.style.display = 'block';
   }
 
   goToSlide(0);

@@ -27,7 +27,7 @@ function goToSlide(slideIdx) {
   document.getElementById('transcript-text').innerText = transText;
 
   // Auto-complete simple content slides instantly so user doesn't wait on a hidden timer
-  if (![4, 5, 8, 12, 19, 20].includes(slideIdx)) {
+  if (![3, 4, 7, 8, 11, 18, 19].includes(slideIdx)) {
     slideCompleted[slideIdx] = true;
     const outline = document.getElementById(`outline-item-${slideIdx}`);
     if (outline) outline.classList.add('completed');
@@ -46,12 +46,12 @@ function goToSlide(slideIdx) {
   }
 
   // Restore quiz state when revisiting a quiz slide
-  if ([4, 8, 12, 19].includes(slideIdx)) {
+  if ([3, 7, 11, 18].includes(slideIdx)) {
     restoreQuizState(slideIdx);
   }
 
   // Certificate slide
-  if (currentSlide === 20) validateCertNameInput();
+  if (currentSlide === 19) validateCertNameInput();
 
   // Slide 1 interactive diagram sync
   if (slideIdx === 1) {
@@ -179,27 +179,30 @@ function updateControls() {
 
 // ── SLIDE INTERACTION LOCKS ───────────────────
 function isSlideLockedByInteractions(slideIdx) {
-  if (slideIdx === 5) {
-    return !Object.values(slideInteractions[5]).every(v => v === true);
+  if (slideIdx === 4) {
+    return !Object.values(slideInteractions[4]).every(v => v === true);
   }
-  if ([4, 8, 12, 19].includes(slideIdx)) {
+  if (slideIdx === 8) {
+    return !Object.values(slideInteractions[8]).every(v => v === true);
+  }
+  if ([3, 7, 11, 18].includes(slideIdx)) {
     return !slideCompleted[slideIdx];
   }
   return false;
 }
 
-// Slide 5 timeline node click handler
+// Slide 4 timeline node click handler
 function triggerSlideInteraction(slideIdx, elementKey, elementDOM) {
-  if (slideIdx !== 5) return;
+  if (slideIdx !== 4) return;
 
-  slideInteractions[5][elementKey] = true;
+  slideInteractions[4][elementKey] = true;
   elementDOM.parentElement.querySelectorAll('.mini-timeline-item').forEach(item => item.classList.remove('clicked'));
   elementDOM.classList.add('clicked');
   elementDOM.classList.add('visited');
 
   // Update timeline connector progress bar height based on which steps have been visited
-  const steps = slideInteractions[5];
-  const progressBar = document.getElementById('timeline-progress-bar-5');
+  const steps = slideInteractions[4];
+  const progressBar = document.getElementById('timeline-progress-bar-4');
   if (progressBar) {
     let visitedCount = 0;
     if (steps.step1) visitedCount++;
@@ -325,9 +328,9 @@ function triggerSlideInteraction(slideIdx, elementKey, elementDOM) {
     detailBox.className = "step-detail-active";
   }
 
-  if (!isSlideLockedByInteractions(5)) {
-    markSlideComplete(5);
-    const warning = document.getElementById('slide-lock-warning-5');
+  if (!isSlideLockedByInteractions(4)) {
+    markSlideComplete(4);
+    const warning = document.getElementById('slide-lock-warning-4');
     if (warning) {
       warning.innerHTML = `<div class="lock-status-text success-glow">
         <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -420,6 +423,134 @@ function syncDiagramVolume(enabled) {
     } else {
       diagVolOn.style.display = 'none';
       diagVolOff.style.display = 'block';
+    }
+  }
+}
+
+// ── CAN 400 INTERACTIVE SIMULATION ────────────
+function triggerAlarmReview() {
+  if (slideInteractions[8].alarmReviewed) return;
+
+  const btn = document.getElementById('btn-sim-alarm');
+  if (btn) {
+    btn.disabled = true;
+    btn.classList.remove('pulsing');
+    btn.innerText = 'Board Review Active...';
+  }
+
+  // Simulate digital board review check-offs
+  let count = 0;
+  const interval = setInterval(() => {
+    count += 20;
+    if (count >= 100) {
+      clearInterval(interval);
+      slideInteractions[8].alarmReviewed = true;
+      
+      const gauge = document.getElementById('gauge-node-400');
+      const val = document.getElementById('gauge-val-400');
+      const badge = document.getElementById('gauge-badge-400');
+      const card = document.getElementById('sim-card-alarm');
+      
+      if (gauge) gauge.className = 'gauge-outer approved-gauge';
+      if (val) {
+        val.className = 'gauge-readout approved-glow';
+        val.innerText = '82.5'; // Approved limit
+      }
+      if (badge) {
+        badge.className = 'gauge-status-badge approved';
+        badge.innerText = 'Approved & Locked';
+      }
+      if (card) card.classList.add('completed-state');
+      if (btn) {
+        btn.disabled = false;
+        btn.innerText = '✓ BOARD REVIEW APPROVED';
+        btn.classList.add('completed');
+        btn.disabled = true; // keep disabled once fully approved
+      }
+
+      // Reveal first checklist card
+      const reveal1 = document.getElementById('reveal-card-gatekeeping');
+      if (reveal1) reveal1.classList.add('active');
+
+      checkCAN400Completion();
+    }
+  }, 300);
+}
+
+function triggerHILTest() {
+  if (slideInteractions[8].hilTested) return;
+
+  const btn = document.getElementById('btn-sim-hil');
+  const wrapper = document.getElementById('progress-wrapper-hil');
+  const fill = document.getElementById('progress-fill-hil');
+  const txt = document.getElementById('progress-text-hil');
+
+  if (btn) {
+    btn.disabled = true;
+    btn.classList.remove('pulsing');
+    btn.innerText = 'Testing Software...';
+  }
+  if (wrapper) wrapper.style.display = 'block';
+
+  // Animate progress bar
+  let percent = 0;
+  const interval = setInterval(() => {
+    percent += 5;
+    if (fill) fill.style.width = `${percent}%`;
+    if (txt) txt.innerText = `Running Test: ${percent}%`;
+
+    // Glow some LEDs randomly green
+    const leds = document.querySelectorAll('.plc-led');
+    if (leds.length > 0 && percent % 15 === 0) {
+      const idx = Math.floor(Math.random() * leds.length);
+      leds[idx].className = 'plc-led green glowing';
+    }
+
+    if (percent >= 100) {
+      clearInterval(interval);
+      slideInteractions[8].hilTested = true;
+
+      // Glow all LEDs green
+      leds.forEach(led => {
+        led.className = 'plc-led green glowing';
+      });
+
+      const card = document.getElementById('sim-card-hil');
+      if (card) card.classList.add('completed-state');
+      if (txt) {
+        txt.innerText = 'Test Result: PASSED (0 Errors)';
+        txt.style.color = '#10b981';
+      }
+      if (btn) {
+        btn.disabled = false;
+        btn.innerText = '✓ HIL TESTING PASSED';
+        btn.classList.add('completed');
+        btn.disabled = true; // keep disabled once fully passed
+      }
+
+      // Reveal second checklist card
+      const reveal2 = document.getElementById('reveal-card-risk');
+      if (reveal2) reveal2.classList.add('active');
+
+      checkCAN400Completion();
+    }
+  }, 100);
+}
+
+function checkCAN400Completion() {
+  const steps = slideInteractions[8];
+  if (steps.alarmReviewed && steps.hilTested) {
+    // Complete slide
+    markSlideComplete(8);
+    const placeholder = document.getElementById('placeholder-deck-card');
+    if (placeholder) placeholder.style.display = 'none';
+
+    const warning = document.getElementById('slide-lock-warning-8');
+    if (warning) {
+      warning.innerHTML = `<div class="lock-status-text success-glow" style="margin-top: 15px; display: inline-flex; align-items: center; gap: 8px;">
+        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>CAN 400 workflow requirements completed! You may now navigate to the next slide.</span>
+      </div>`;
     }
   }
 }
