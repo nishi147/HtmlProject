@@ -1,0 +1,56 @@
+<section id="slide-19" class="slide-pane">
+  <div class="slide-wrapper">
+    <div class="slide-col-left" style="flex: 0 0 100%; display: flex; flex-direction: column;">
+      
+      <h3 class="slide-heading-text" style="font-family: var(--font-heading); color: var(--primary-teal); font-size: 1.8rem; font-weight: 700; margin-bottom: 10px;">Four Common Respiratory Hazards</h3>
+      <p style="font-size: 1rem; line-height: 1.5; color: var(--text-dark); margin-bottom: 8px;">
+        There are four common respiratory hazards that can be found separately or in combination with each other in confined spaces, or around hazardous materials releases or fires.
+      </p>
+      <p style="font-size: 0.95rem; font-weight: 600; color: var(--accent-orange); margin-bottom: 20px;">
+        Click each button to learn more. When done, click the next button to continue.
+      </p>
+
+      <!-- Buttons Row -->
+      <div class="hazard-buttons-row" style="display: flex; gap: 15px; margin-bottom: 25px;">
+        <button class="hazard-btn pulsing" id="btn-hazard-0" onclick="selectHazard(0)">
+          <span>Oxygen deficiency</span>
+        </button>
+        <button class="hazard-btn pulsing" id="btn-hazard-1" onclick="selectHazard(1)">
+          <span>Elevated temperatures</span>
+        </button>
+        <button class="hazard-btn pulsing" id="btn-hazard-2" onclick="selectHazard(2)">
+          <span>Smoke or unburned products of combustion</span>
+        </button>
+        <button class="hazard-btn pulsing" id="btn-hazard-3" onclick="selectHazard(3)">
+          <span>Toxic atmospheres</span>
+        </button>
+      </div>
+
+      <!-- Detail Card (displays underneath with an arrow indicator matching selected button) -->
+      <div id="hazard-arrow-indicator" class="hazard-arrow" style="display: none;"></div>
+      <div id="hazard-detail-card" class="premium-detail-card fade-in-slide-up" style="display: none; padding: 25px; margin-top: 5px; flex-direction: row; gap: 20px; align-items: center; min-height: 300px;">
+        
+        <div class="hazard-text-content" style="flex: 1;">
+          <h4 id="hazard-title" style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--primary-teal); margin-bottom: 12px; font-weight: 700;">Oxygen Deficiency</h4>
+          <p id="hazard-desc" style="font-size: 0.95rem; line-height: 1.5; color: var(--text-muted); margin-bottom: 15px;">
+            This deficiency can lead to serious injuries including death. Please consider the following information:
+          </p>
+          <ul id="hazard-list" class="checklist-deliverables" style="margin-top: 10px;">
+            <!-- filled dynamically -->
+          </ul>
+        </div>
+        
+        <div class="hazard-image-content" style="width: 280px; display: flex; justify-content: center; align-items: center;">
+          <img id="hazard-image" src="assets/brain_anatomy.png" alt="Brain Anatomy Diagram" style="max-width: 100%; border-radius: 8px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.06);">
+        </div>
+
+      </div>
+
+      <!-- Slide unlock warning -->
+      <div id="slide-lock-warning-19" class="slide-lock-panel" style="margin-top: 20px;">
+        <p class="lock-status-text warning-glow">⚠️ Click and inspect all four respiratory hazards above to proceed.</p>
+      </div>
+
+    </div>
+  </div>
+</section>

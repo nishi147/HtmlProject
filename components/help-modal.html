@@ -1,0 +1,45 @@
+<div class="notes-modal-overlay" id="help-modal">
+  <div class="notes-modal-card" style="max-width: 600px;">
+    <button class="btn-notes-close" onclick="closeHelpModal()" aria-label="Close Help Modal">&times;</button>
+    <div class="notes-modal-header">
+      <div class="notes-modal-title-row">
+        <h3 class="notes-title-text">Help</h3>
+        <svg class="notes-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+      </div>
+      <div class="notes-modal-subheader-row">
+        <p class="notes-subheader-text" style="color: var(--primary-teal); font-weight: 700; font-size: 1.1rem; margin-top: 10px; margin-bottom: 5px;">Course Navigation Guide:</p>
+      </div>
+    </div>
+    <div class="notes-modal-body" style="padding-top: 10px;">
+      <div class="help-content-list" style="background: #ffffff; padding: 25px; border-radius: 6px; border: 1px solid #a6c0cd; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);">
+        <ul class="help-modal-list">
+          <li>
+            <strong>Outline List:</strong> Jump directly to any slide by clicking its title in the Menu.
+          </li>
+          <li>
+            <strong>Playback:</strong> Pause and resume narration using the bottom left button.
+          </li>
+          <li>
+            <strong>Seek bar:</strong> Click on the slider to scrub through the timeline.
+          </li>
+          <li>
+            <strong>Transcript:</strong> View active slide text logs from the top utility bar.
+          </li>
+          <li>
+            <strong>Notes:</strong> Save study notes in the notes card modal, and hit print to output to physical files.
+          </li>
+        </ul>
+      </div>
+      <div class="modal-btn-row">
+        <button class="btn-modal-action primary" onclick="closeHelpModal()">OK</button>
+      </div>
+    </div>
+    <footer class="notes-modal-footer">
+      <span class="notes-footer-course-title">Change Advice Notice Process</span>
+    </footer>
+  </div>
+</div>

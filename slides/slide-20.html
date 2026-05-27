@@ -1,0 +1,69 @@
+<section id="slide-20" class="slide-pane">
+  <div class="slide-wrapper">
+    <!-- Split Layout: 9 Vertical buttons on Left, Detail Card on Right -->
+    <div style="display: flex; gap: 25px; width: 100%; align-items: stretch; min-height: 480px;">
+      
+      <!-- Left Column: Components List -->
+      <div style="flex: 0 0 38%; display: flex; flex-direction: column; gap: 10px;">
+        <h3 class="slide-heading-text" style="font-family: var(--font-heading); color: var(--primary-teal); font-size: 1.6rem; font-weight: 700; margin-bottom: 2px;">Components of the SCBA</h3>
+        <p style="font-size: 0.9rem; color: var(--text-dark); margin-bottom: 5px;">There are nine components of the SCBA.</p>
+        <p style="font-size: 0.85rem; font-weight: 600; color: var(--accent-orange); margin-bottom: 12px;">Click on each component below to learn more.</p>
+
+        <div class="scba-components-list" style="display: flex; flex-direction: column; gap: 8px;">
+          <button class="scba-comp-btn pulsing" id="btn-scba-0" onclick="selectSCBAComponent(0)">
+            <span>Back frame and harness</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-1" onclick="selectSCBAComponent(1)">
+            <span>SCBA Reducer</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-2" onclick="selectSCBAComponent(2)">
+            <span>Mask Mounted Regulator (MMR)</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-3" onclick="selectSCBAComponent(3)">
+            <span>Universal Rescue Connection (URC)</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-4" onclick="selectSCBAComponent(4)">
+            <span>Remote gauge</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-5" onclick="selectSCBAComponent(5)">
+            <span>High pressure coupling seal</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-6" onclick="selectSCBAComponent(6)">
+            <span>Air cylinder and valve assembly (2216 psi)</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-7" onclick="selectSCBAComponent(7)">
+            <span>Air cylinder and valve assembly (4500 psi)</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-8" onclick="selectSCBAComponent(8)">
+            <span>Face piece</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Detail Card and Images -->
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+        
+        <!-- Detail Panel (has arrow point to selected button) -->
+        <div id="scba-detail-card" class="premium-detail-card fade-in-slide-up" style="display: none; padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; min-height: 400px; border-left: 4px solid var(--primary-teal);">
+          <h4 id="scba-title" style="font-family: var(--font-heading); font-size: 1.3rem; color: var(--primary-teal); margin-bottom: 12px; font-weight: 700;">SCBA Harness / SCBA back frame and harness</h4>
+          <ul id="scba-list" class="checklist-deliverables" style="margin-bottom: 20px;">
+            <!-- filled dynamically -->
+          </ul>
+          
+          <!-- Image grid for harness component -->
+          <div id="scba-images-row" style="display: flex; gap: 15px; margin-top: auto; justify-content: center; align-items: center;">
+            <img src="assets/scba_harness.png" alt="SCBA harness 1" style="max-height: 180px; border-radius: 6px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.06);">
+            <img src="assets/scba_harness.png" alt="SCBA harness 2" style="max-height: 180px; border-radius: 6px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.06); filter: hue-rotate(30deg);">
+          </div>
+        </div>
+
+        <!-- Slide unlock warning -->
+        <div id="slide-lock-warning-20" class="slide-lock-panel" style="margin-top: 15px;">
+          <p class="lock-status-text warning-glow">⚠️ Inspect all nine SCBA components on the left to proceed.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>

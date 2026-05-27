@@ -1,0 +1,23 @@
+<div class="notes-modal-overlay" id="notes-modal">
+  <div class="notes-modal-card">
+    <button class="btn-notes-close" onclick="closeNotesModal()" aria-label="Close Notes Modal">&times;</button>
+    <div class="notes-modal-header">
+      <div class="notes-modal-title-row">
+        <h3 class="notes-title-text">My notes</h3>
+        <svg class="notes-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+      </div>
+      <div class="notes-modal-subheader-row">
+        <p class="notes-subheader-text">Need to jot down some notes throughout the course? Add them here.</p>
+        <button class="btn-notes-print" onclick="printNotes()">Print</button>
+      </div>
+    </div>
+    <div class="notes-modal-body">
+      <textarea id="notes-text-area" placeholder="Type your notes here"></textarea>
+    </div>
+    <footer class="notes-modal-footer">
+      <span class="notes-footer-course-title">Change Advice Notice Process</span>
+    </footer>
+  </div>
+</div>

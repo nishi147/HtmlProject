@@ -1,0 +1,29 @@
+<div class="notes-modal-overlay" id="exit-modal">
+  <div class="notes-modal-card" style="max-width: 500px;">
+    <button class="btn-notes-close" onclick="closeExitModal()" aria-label="Close Exit Modal">&times;</button>
+    <div class="notes-modal-header">
+      <div class="notes-modal-title-row">
+        <h3 class="notes-title-text" style="font-size: 1.8rem;">Exit Course</h3>
+        <svg class="notes-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+      </div>
+    </div>
+    <div class="notes-modal-body" style="padding-top: 15px;">
+      <div style="background: #ffffff; padding: 25px; border-radius: 6px; border: 1px solid #a6c0cd; text-align: center; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);">
+        <p style="font-size: 1.05rem; color: #333; line-height: 1.5; font-weight: 500; margin: 0;">
+          Are you sure you want to exit the Change Advice Notice Process training?
+        </p>
+      </div>
+      <div class="modal-btn-row">
+        <button class="btn-modal-action secondary" onclick="closeExitModal()">Cancel</button>
+        <button class="btn-modal-action primary" onclick="confirmExitCourse()">OK</button>
+      </div>
+    </div>
+    <footer class="notes-modal-footer">
+      <span class="notes-footer-course-title">Change Advice Notice Process</span>
+    </footer>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<section id="slide-0" class="slide-pane active">
+  <div class="slide-wrapper">
+    <div class="slide-col-left">
+      <h3 class="slide-main-title">Course Navigation</h3>
+      <p>Before beginning, review the player layout to understand the interface controls.</p>
+      <div class="slide-highlight-card blue">
+        <h4 class="card-highlight-title">Interface Reference:</h4>
+        <ul class="highlight-bullet-list">
+          <li><strong>Left Menu Panel</strong>: Track progress, inspect glossary terms, or download guidelines.</li>
+          <li><strong>Prev &amp; Next Buttons</strong>: Switch active slides.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-col-right">
+      <div class="nav-guide-container">
+        <div class="nav-guide-card">
+          <div class="nav-guide-header">Player Controls Reference</div>
+          
+          <div class="nav-guide-visual">
+            <div class="visual-node">
+              <div style="display: flex; gap: 8px; flex-shrink: 0;">
+                <button class="visual-nav-btn interactive" id="diag-prev-btn" onclick="changeSlideRedesign(-1)" aria-label="Previous Slide">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px;"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button class="visual-nav-btn active interactive" id="diag-next-btn" onclick="changeSlideRedesign(1)" aria-label="Next Slide">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px;"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+              </div>
+              <span class="visual-label">Slide Navigation controls</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

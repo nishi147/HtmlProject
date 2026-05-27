@@ -18,8 +18,8 @@
   --bg-light: #f5f6f8;
   --bg-white: #ffffff;
   
-  --font-heading: 'Outfit', 'Inter', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Calibri', 'Candara', 'Segoe UI', sans-serif;
+  --font-body: 'Calibri', 'Candara', 'Segoe UI', sans-serif;
   
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
@@ -740,6 +740,11 @@ button, input {
   padding: 0 30px;
   height: 52px;
   overflow: hidden;
+}
+
+/* Adjust header padding when sidebar is collapsed to avoid overlap with hamburger button */
+.player-sidebar.collapsed ~ .player-main-canvas .player-header {
+  padding-left: 60px;
 }
 
 .player-header::after {
@@ -2297,6 +2302,10 @@ button, input {
     padding: 0 18px;
   }
 
+  .player-sidebar.collapsed ~ .player-main-canvas .player-header {
+    padding-left: 50px;
+  }
+
   .player-course-title {
     font-size: 1.1rem;
     white-space: nowrap;
@@ -2419,6 +2428,10 @@ button, input {
   .player-header {
     padding: 0 12px;
     height: 46px;
+  }
+
+  .player-sidebar.collapsed ~ .player-main-canvas .player-header {
+    padding-left: 48px;
   }
 
   .player-course-title {
@@ -2634,6 +2647,10 @@ button, input {
   .player-header {
     padding: 0 10px;
     height: 44px;
+  }
+
+  .player-sidebar.collapsed ~ .player-main-canvas .player-header {
+    padding-left: 45px;
   }
 
   .player-header::after {
@@ -3859,3 +3876,579 @@ button, input {
 
 .reveal-card.orange-theme .reveal-card-bullet-list li::before { color: var(--accent-orange); }
 .reveal-card.rose-theme .reveal-card-bullet-list li::before { color: #f43f5e; }
+
+/* ── Matrix Quiz Styles (Slide 18) ─────────────── */
+.quiz-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  font-family: var(--font-body);
+}
+
+.quiz-matrix-table th {
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 12px 10px;
+  text-align: center;
+  border: 1px solid #475569;
+  line-height: 1.35;
+}
+
+.quiz-matrix-table td {
+  padding: 15px 10px;
+  text-align: center;
+  border: 1px solid #cbd5e1;
+}
+
+.quiz-matrix-table tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.quiz-matrix-table tr:nth-child(odd) {
+  background-color: #e2e8f0;
+}
+
+.quiz-matrix-table td.row-header {
+  font-weight: 700;
+  color: #1e293b;
+  text-align: left;
+  padding-left: 20px;
+  font-size: 0.95rem;
+}
+
+.matrix-check {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #94a3b8;
+  border-radius: 4px;
+  background-color: #ffffff;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.matrix-check:checked {
+  background-color: #6fa8dc;
+  border-color: #6fa8dc;
+  box-shadow: 0 0 4px rgba(111, 168, 220, 0.4);
+}
+
+.matrix-check:checked::after {
+  content: "✓";
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.matrix-check:hover:not(:disabled) {
+  border-color: var(--primary-teal);
+  background-color: #f1f5f9;
+}
+
+.matrix-check:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Matrix Feedback Card styles */
+.matrix-feedback-card {
+  width: 100%;
+  border-radius: 12px;
+  padding: 24px 30px;
+  margin-top: 20px;
+  text-align: left;
+  animation: popIn 0.3s ease-out;
+  box-shadow: var(--shadow-sm);
+}
+
+.matrix-feedback-card.correct {
+  border: 4px solid #00a86b;
+  background-color: #ffffff;
+}
+
+.matrix-feedback-card.try-again {
+  border: 4px solid #f2a104;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.matrix-feedback-card.incorrect {
+  border: 4px solid #d24b22;
+  background-color: #ffffff;
+}
+
+.matrix-feedback-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.matrix-feedback-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.matrix-feedback-icon.success {
+  border: 3px solid #00a86b;
+  color: #00a86b;
+  background-color: rgba(0, 168, 107, 0.05);
+}
+
+.matrix-feedback-icon.warning {
+  border: 3px solid #f2a104;
+  color: #f2a104;
+  background-color: rgba(242, 161, 4, 0.05);
+}
+
+.matrix-feedback-icon.failure {
+  border: 3px solid #d24b22;
+  color: #d24b22;
+  background-color: rgba(210, 75, 34, 0.05);
+}
+
+.matrix-feedback-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.matrix-feedback-title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.matrix-feedback-title.success { color: #00a86b; }
+.matrix-feedback-title.warning { color: #f2a104; }
+.matrix-feedback-title.failure { color: #d24b22; }
+
+.matrix-explanation-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+.matrix-explanation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.matrix-explanation-list li {
+  font-size: 0.95rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+/* ── NEW INTERACTIVE SLIDES CSS ──────────────── */
+
+/* Pulse animation for active clickable items */
+@keyframes btnPulse {
+  0% { box-shadow: 0 0 0 0 rgba(242, 101, 34, 0.45); }
+  70% { box-shadow: 0 0 0 8px rgba(242, 101, 34, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(242, 101, 34, 0); }
+}
+.pulsing {
+  animation: btnPulse 2s infinite !important;
+}
+
+/* Slide 19: Four Common Respiratory Hazards */
+.hazard-btn {
+  flex: 1;
+  background-color: #b5d0df;
+  color: #000000;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 12px 10px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hazard-btn:hover {
+  background-color: #a4c2d3;
+  transform: translateY(-1px);
+}
+
+.hazard-btn.selected {
+  background-color: #ffffff !important;
+  border-color: var(--primary-teal) !important;
+  box-shadow: 0 6px 16px rgba(27, 54, 68, 0.15) !important;
+  color: #000000 !important;
+}
+
+.hazard-btn.visited:not(.selected) {
+  border-color: rgba(27, 54, 68, 0.3);
+}
+
+.hazard-arrow {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid var(--primary-teal);
+  position: relative;
+  margin-bottom: -1px;
+  transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 5;
+}
+
+.hazard-image-glow {
+  transition: filter 0.5s ease, transform 0.5s ease;
+}
+.hazard-image-glow:hover {
+  transform: scale(1.03);
+}
+
+/* Slide 20: Components of the SCBA */
+.scba-comp-btn {
+  position: relative;
+  width: 100%;
+  background-color: #b5d0df;
+  color: #000000;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.scba-comp-btn:hover {
+  background-color: #a4c2d3;
+  transform: translateX(2px);
+}
+
+.scba-comp-btn.selected {
+  background-color: var(--primary-teal) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(27, 54, 68, 0.2) !important;
+}
+
+.scba-comp-btn.selected::after {
+  content: "";
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 12px solid var(--primary-teal);
+  z-index: 10;
+}
+
+.scba-comp-btn.visited:not(.selected) {
+  border-color: rgba(27, 54, 68, 0.3);
+}
+
+/* Slide 21: Simulated Video Player */
+.simulated-video-player:hover #video-center-play-btn {
+  transform: translate(-50%, -50%) scale(1.08);
+  background-color: var(--accent-orange);
+}
+
+.video-play-overlay-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background-color: rgba(27, 54, 68, 0.8);
+  border: 3px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 5;
+}
+
+.video-play-overlay-btn:hover {
+  background-color: var(--accent-orange);
+  border-color: #ffffff;
+}
+
+.video-play-overlay-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.video-play-overlay-btn:active svg {
+  transform: scale(0.9);
+}
+
+/* Slide 22: Properties of H2S Wheel & Floating Card */
+.h2s-node-btn {
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.h2s-node-btn circle {
+  transition: fill 0.25s ease, stroke 0.25s ease, stroke-width 0.25s ease;
+}
+.h2s-node-btn:hover circle {
+  fill: #f7fafc;
+  stroke: var(--accent-orange) !important;
+  stroke-width: 4px;
+}
+.h2s-node-btn.selected circle {
+  fill: #eef4f7;
+  stroke: var(--accent-orange) !important;
+  stroke-width: 4px;
+}
+.h2s-node-btn.visited circle {
+  stroke: #24ac7d;
+}
+
+.h2s-floating-card {
+  border-left: 4px solid var(--accent-orange) !important;
+  animation: slideInCenter 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideInCenter {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Slide 23: Fire Classifications Card Grid */
+.fire-classes-grid {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.fire-class-card {
+  flex: 1;
+  background-color: #b5d0df;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 15px 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.fire-class-card:hover {
+  background-color: #a4c2d3;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.fire-class-card.selected {
+  background-color: #ffffff !important;
+  border-color: var(--primary-teal) !important;
+  box-shadow: 0 6px 20px rgba(27, 54, 68, 0.18) !important;
+  color: #000000 !important;
+}
+
+.fire-class-card.visited:not(.selected) {
+  border-color: rgba(27, 54, 68, 0.3);
+}
+
+.fire-class-shape {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+}
+
+.fire-class-card:hover .fire-class-shape {
+  transform: scale(1.08);
+}
+
+.fire-class-desc {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #2c5064;
+  line-height: 1.3;
+}
+
+.fire-class-icon-container svg {
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+  animation: popIcon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes popIcon {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Slide 24: Fire Tetrahedron */
+.tetra-facet {
+  transition: fill 0.25s ease, filter 0.25s ease, stroke 0.25s ease;
+}
+
+.tetra-facet:hover {
+  filter: brightness(1.1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+
+.tetra-facet.selected {
+  stroke: var(--accent-orange) !important;
+  stroke-width: 5px !important;
+  filter: brightness(1.15) drop-shadow(0 0 12px rgba(242, 101, 34, 0.4));
+}
+
+.tetra-facet.visited:not(.selected) {
+  stroke: #ffffff !important;
+  stroke-width: 3px !important;
+}
+
+/* ── SLIDES 13-17 REFINEMENTS & STAGGERED ENTRANCES ── */
+
+@keyframes slideInLeftGentle {
+  0% { transform: translateX(-30px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRightGentle {
+  0% { transform: translateX(30px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Staggered entrance animations triggered on active slide */
+#slide-13.active .slide-main-title,
+#slide-14.active .slide-main-title,
+#slide-15.active .slide-main-title,
+#slide-16.active .slide-main-title,
+#slide-17.active .slide-main-title {
+  animation: slideInLeftGentle 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+#slide-13.active .slide-col-left > p,
+#slide-14.active .slide-col-left > p,
+#slide-15.active .slide-col-left > p,
+#slide-16.active .slide-col-left > p,
+#slide-17.active .slide-col-left > p {
+  animation: slideInLeftGentle 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+#slide-13.active .slide-highlight-card,
+#slide-14.active .slide-highlight-card,
+#slide-15.active .slide-highlight-card,
+#slide-16.active .slide-highlight-card,
+#slide-17.active .slide-highlight-card {
+  animation: slideInLeftGentle 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+/* Staggered bullet items */
+#slide-13.active .highlight-bullet-list li,
+#slide-14.active .highlight-bullet-list li,
+#slide-15.active .highlight-bullet-list li,
+#slide-16.active .highlight-bullet-list li,
+#slide-17.active .highlight-bullet-list li {
+  animation: slideInLeftGentle 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+#slide-13.active .highlight-bullet-list li:nth-child(1),
+#slide-14.active .highlight-bullet-list li:nth-child(1),
+#slide-15.active .highlight-bullet-list li:nth-child(1),
+#slide-16.active .highlight-bullet-list li:nth-child(1),
+#slide-17.active .highlight-bullet-list li:nth-child(1) { animation-delay: 0.3s; }
+
+#slide-13.active .highlight-bullet-list li:nth-child(2),
+#slide-14.active .highlight-bullet-list li:nth-child(2),
+#slide-15.active .highlight-bullet-list li:nth-child(2),
+#slide-16.active .highlight-bullet-list li:nth-child(2),
+#slide-17.active .highlight-bullet-list li:nth-child(2) { animation-delay: 0.4s; }
+
+#slide-13.active .highlight-bullet-list li:nth-child(3),
+#slide-14.active .highlight-bullet-list li:nth-child(3),
+#slide-15.active .highlight-bullet-list li:nth-child(3),
+#slide-16.active .highlight-bullet-list li:nth-child(3),
+#slide-17.active .highlight-bullet-list li:nth-child(3) { animation-delay: 0.5s; }
+
+/* Right column panels slide in from right */
+#slide-13.active .slide-col-right,
+#slide-14.active .slide-col-right,
+#slide-15.active .slide-col-right,
+#slide-16.active .slide-col-right,
+#slide-17.active .slide-col-right {
+  animation: slideInRightGentle 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+/* Custom premium hover/border styling for right column boxes */
+#slide-13 .slide-col-right > div,
+#slide-14 .slide-col-right > div,
+#slide-15 .slide-col-right > div,
+#slide-16 .slide-col-right > div,
+#slide-17 .slide-col-right > div {
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-left 0.3s ease !important;
+  border-left: 5px solid var(--primary-teal-bright) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+#slide-13 .slide-col-right > div:hover,
+#slide-14 .slide-col-right > div:hover,
+#slide-15 .slide-col-right > div:hover,
+#slide-16 .slide-col-right > div:hover,
+#slide-17 .slide-col-right > div:hover {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: var(--shadow-md) !important;
+  border-left-color: var(--accent-orange) !important;
+}
+
+/* Premium Left-border highlight for left cards too */
+.slide-highlight-card.blue {
+  border-left: 4px solid var(--primary-teal-light);
+  border-radius: 4px 16px 16px 4px;
+}
+.slide-highlight-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.slide-highlight-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Bullet list custom indicators */
+.highlight-bullet-list li::before {
+  content: "" !important;
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-orange);
+}
+
