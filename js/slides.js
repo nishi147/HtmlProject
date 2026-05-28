@@ -27,7 +27,7 @@ function goToSlide(slideIdx) {
   document.getElementById('transcript-text').innerText = transText;
 
   // Auto-complete simple content slides instantly so user doesn't wait on a hidden timer
-  if (![3, 4, 7, 8, 11, 18, 19, 20, 21, 22, 23, 24, 25, 26].includes(slideIdx)) {
+  if (![3, 4, 5, 6, 9, 16, 17, 18, 19, 20, 21, 22, 23, 24].includes(slideIdx)) {
     slideCompleted[slideIdx] = true;
     const outline = document.getElementById(`outline-item-${slideIdx}`);
     if (outline) outline.classList.add('completed');
@@ -46,15 +46,15 @@ function goToSlide(slideIdx) {
   }
 
   // Restore quiz state when revisiting a quiz slide
-  if ([3, 7, 11, 18].includes(slideIdx)) {
+  if ([3, 5, 9, 16].includes(slideIdx)) {
     restoreQuizState(slideIdx);
   }
 
   // Certificate slide
-  if (currentSlide === 26) validateCertNameInput();
+  if (currentSlide === 24) validateCertNameInput();
 
   // Results slide
-  if (currentSlide === 25) showQuizResults();
+  if (currentSlide === 23) showQuizResults();
 
   // Slide 1 interactive diagram sync
   if (slideIdx === 1) {
@@ -65,6 +65,14 @@ function goToSlide(slideIdx) {
       updateControls();
     }, 50);
   }
+
+  // Restore interactive UI state if bookmarked
+  restoreSlideInteractionUI(slideIdx);
+
+  // Save to SCORM
+  if (typeof saveStateToScorm === 'function') {
+    saveStateToScorm();
+  }
 }
 
 function changeSlideRedesign(direction) {
@@ -73,17 +81,17 @@ function changeSlideRedesign(direction) {
 
 // Restore full quiz UI when navigating back to a quiz slide
 function restoreQuizState(slideIdx) {
-  if (slideIdx === 18) {
-    const tableContainer = document.getElementById('quiz-matrix-container-18');
-    const feedbackContainer = document.getElementById('quiz-feedback-container-18');
-    const submitBtn = document.getElementById('btn-quiz-submit-18');
+  if (slideIdx === 16) {
+    const tableContainer = document.getElementById('quiz-matrix-container-16');
+    const feedbackContainer = document.getElementById('quiz-feedback-container-16');
+    const submitBtn = document.getElementById('btn-quiz-submit-16');
 
     // Hide all feedback cards initially
-    document.getElementById('matrix-feedback-correct-18').style.display = 'none';
-    document.getElementById('matrix-feedback-try-again-18').style.display = 'none';
-    document.getElementById('matrix-feedback-incorrect-18').style.display = 'none';
+    document.getElementById('matrix-feedback-correct-16').style.display = 'none';
+    document.getElementById('matrix-feedback-try-again-16').style.display = 'none';
+    document.getElementById('matrix-feedback-incorrect-16').style.display = 'none';
 
-    if (slideCompleted[18]) {
+    if (slideCompleted[16]) {
       if (tableContainer) tableContainer.style.display = 'none';
       if (feedbackContainer) feedbackContainer.style.display = 'block';
       if (submitBtn) {
@@ -101,7 +109,7 @@ function restoreQuizState(slideIdx) {
       let isCorrect = true;
       for (let r = 0; r < 4; r++) {
         for (let c = 0; c < 4; c++) {
-          if (selectedQuizChoices[18][r][c] !== correctGrid[r][c]) {
+          if (selectedQuizChoices[16][r][c] !== correctGrid[r][c]) {
             isCorrect = false;
             break;
           }
@@ -110,9 +118,9 @@ function restoreQuizState(slideIdx) {
       }
 
       if (isCorrect) {
-        document.getElementById('matrix-feedback-correct-18').style.display = 'block';
+        document.getElementById('matrix-feedback-correct-16').style.display = 'block';
       } else {
-        document.getElementById('matrix-feedback-incorrect-18').style.display = 'block';
+        document.getElementById('matrix-feedback-incorrect-16').style.display = 'block';
       }
       
       // Disable checkboxes
@@ -121,17 +129,17 @@ function restoreQuizState(slideIdx) {
       if (tableContainer) tableContainer.style.display = 'block';
       if (feedbackContainer) feedbackContainer.style.display = 'none';
 
-      // Restore checkbox checked states from selectedQuizChoices[18]
+      // Restore checkbox checked states from selectedQuizChoices[16]
       const checkboxes = document.querySelectorAll('.matrix-check');
       checkboxes.forEach((chk, idx) => {
         const r = Math.floor(idx / 4);
         const c = idx % 4;
-        chk.checked = selectedQuizChoices[18][r][c];
+        chk.checked = selectedQuizChoices[16][r][c];
         chk.disabled = false;
       });
 
       // Restore submit button state
-      const hasSelection = selectedQuizChoices[18].some(r => r.some(c => c === true));
+      const hasSelection = selectedQuizChoices[16].some(r => r.some(c => c === true));
       if (submitBtn) {
         if (hasSelection) {
           submitBtn.disabled = false;
@@ -239,6 +247,10 @@ function markSlideComplete(slideIdx) {
   const outlineNode = document.getElementById(`outline-item-${slideIdx}`);
   if (outlineNode) outlineNode.classList.add('completed');
   updateControls();
+
+  if (typeof saveStateToScorm === 'function') {
+    saveStateToScorm();
+  }
 }
 
 // ── BUTTON STATE ──────────────────────────────
@@ -257,28 +269,28 @@ function isSlideLockedByInteractions(slideIdx) {
   if (slideIdx === 4) {
     return !Object.values(slideInteractions[4]).every(v => v === true);
   }
-  if (slideIdx === 8) {
-    return !Object.values(slideInteractions[8]).every(v => v === true);
+  if (slideIdx === 6) {
+    return !Object.values(slideInteractions[6]).every(v => v === true);
+  }
+  if (slideIdx === 17) {
+    return !Object.values(slideInteractions[17]).every(v => v === true);
+  }
+  if (slideIdx === 18) {
+    return !Object.values(slideInteractions[18]).every(v => v === true);
   }
   if (slideIdx === 19) {
-    return !Object.values(slideInteractions[19]).every(v => v === true);
+    return !slideInteractions[19].videoPlayed;
   }
   if (slideIdx === 20) {
     return !Object.values(slideInteractions[20]).every(v => v === true);
   }
   if (slideIdx === 21) {
-    return !slideInteractions[21].videoPlayed;
+    return !Object.values(slideInteractions[21]).every(v => v === true);
   }
   if (slideIdx === 22) {
     return !Object.values(slideInteractions[22]).every(v => v === true);
   }
-  if (slideIdx === 23) {
-    return !Object.values(slideInteractions[23]).every(v => v === true);
-  }
-  if (slideIdx === 24) {
-    return !Object.values(slideInteractions[24]).every(v => v === true);
-  }
-  if ([3, 7, 11, 18, 25, 26].includes(slideIdx)) {
+  if ([3, 5, 9, 16, 23, 24].includes(slideIdx)) {
     return !slideCompleted[slideIdx];
   }
   return false;
@@ -522,7 +534,7 @@ function syncDiagramVolume(enabled) {
 
 // ── CAN 400 INTERACTIVE SIMULATION ────────────
 function triggerAlarmReview() {
-  if (slideInteractions[8].alarmReviewed) return;
+  if (slideInteractions[6].alarmReviewed) return;
 
   const btn = document.getElementById('btn-sim-alarm');
   if (btn) {
@@ -537,7 +549,7 @@ function triggerAlarmReview() {
     count += 20;
     if (count >= 100) {
       clearInterval(interval);
-      slideInteractions[8].alarmReviewed = true;
+      slideInteractions[6].alarmReviewed = true;
       
       const gauge = document.getElementById('gauge-node-400');
       const val = document.getElementById('gauge-val-400');
@@ -571,7 +583,7 @@ function triggerAlarmReview() {
 }
 
 function triggerHILTest() {
-  if (slideInteractions[8].hilTested) return;
+  if (slideInteractions[6].hilTested) return;
 
   const btn = document.getElementById('btn-sim-hil');
   const wrapper = document.getElementById('progress-wrapper-hil');
@@ -601,7 +613,7 @@ function triggerHILTest() {
 
     if (percent >= 100) {
       clearInterval(interval);
-      slideInteractions[8].hilTested = true;
+      slideInteractions[6].hilTested = true;
 
       // Glow all LEDs green
       leds.forEach(led => {
@@ -631,14 +643,14 @@ function triggerHILTest() {
 }
 
 function checkCAN400Completion() {
-  const steps = slideInteractions[8];
+  const steps = slideInteractions[6];
   if (steps.alarmReviewed && steps.hilTested) {
     // Complete slide
-    markSlideComplete(8);
+    markSlideComplete(6);
     const placeholder = document.getElementById('placeholder-deck-card');
     if (placeholder) placeholder.style.display = 'none';
 
-    const warning = document.getElementById('slide-lock-warning-8');
+    const warning = document.getElementById('slide-lock-warning-6');
     if (warning) {
       warning.innerHTML = `<div class="lock-status-text success-glow" style="margin-top: 15px; display: inline-flex; align-items: center; gap: 8px;">
         <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -695,13 +707,13 @@ const hazardData19 = {
 };
 
 function selectHazard(idx) {
-  slideInteractions[19][`hazard${idx}`] = true;
+  slideInteractions[17][`hazard${idx}`] = true;
   
   for (let i = 0; i < 4; i++) {
     const btn = document.getElementById(`btn-hazard-${i}`);
     if (btn) {
       btn.classList.toggle('selected', i === idx);
-      if (slideInteractions[19][`hazard${i}`]) {
+      if (slideInteractions[17][`hazard${i}`]) {
         btn.classList.remove('pulsing');
         btn.classList.add('visited');
       }
@@ -736,14 +748,14 @@ function selectHazard(idx) {
     brainImg.style.filter = `hue-rotate(${idx * 75}deg) saturate(1.2)`;
   }
 
-  checkSlide19Completion();
+  checkSlide17Completion();
 }
 
-function checkSlide19Completion() {
-  const steps = slideInteractions[19];
+function checkSlide17Completion() {
+  const steps = slideInteractions[17];
   if (Object.values(steps).every(v => v === true)) {
-    markSlideComplete(19);
-    const warning = document.getElementById('slide-lock-warning-19');
+    markSlideComplete(17);
+    const warning = document.getElementById('slide-lock-warning-17');
     if (warning) {
       warning.innerHTML = `<div class="lock-status-text success-glow">
         <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -848,13 +860,13 @@ const scbaData20 = {
 };
 
 function selectSCBAComponent(idx) {
-  slideInteractions[20][`comp${idx}`] = true;
+  slideInteractions[18][`comp${idx}`] = true;
 
   for (let i = 0; i < 9; i++) {
     const btn = document.getElementById(`btn-scba-${i}`);
     if (btn) {
       btn.classList.toggle('selected', i === idx);
-      if (slideInteractions[20][`comp${i}`]) {
+      if (slideInteractions[18][`comp${i}`]) {
         btn.classList.remove('pulsing');
         btn.classList.add('visited');
       }
@@ -880,14 +892,14 @@ function selectSCBAComponent(idx) {
     setTimeout(() => { img.style.transform = 'scale(1)'; }, 200);
   });
 
-  checkSlide20Completion();
+  checkSlide18Completion();
 }
 
-function checkSlide20Completion() {
-  const steps = slideInteractions[20];
+function checkSlide18Completion() {
+  const steps = slideInteractions[18];
   if (Object.values(steps).every(v => v === true)) {
-    markSlideComplete(20);
-    const warning = document.getElementById('slide-lock-warning-20');
+    markSlideComplete(18);
+    const warning = document.getElementById('slide-lock-warning-18');
     if (warning) {
       warning.innerHTML = `<div class="lock-status-text success-glow">
         <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -953,10 +965,10 @@ function runVideoPlayback() {
       videoProgress = 100;
       isVideoPlaying = false;
       clearInterval(videoInterval);
-      slideInteractions[21].videoPlayed = true;
-      markSlideComplete(21);
+      slideInteractions[19].videoPlayed = true;
+      markSlideComplete(19);
       
-      const warning = document.getElementById('slide-lock-warning-21');
+      const warning = document.getElementById('slide-lock-warning-19');
       if (warning) {
         warning.innerHTML = `<div class="lock-status-text success-glow">
           <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -1030,14 +1042,14 @@ const h2sPropertiesData = {
 };
 
 function selectH2SProperty(idx) {
-  slideInteractions[22][`prop${idx}`] = true;
+  slideInteractions[20][`prop${idx}`] = true;
   
   // Highlight node and mark visited
   for (let i = 0; i < 6; i++) {
     const node = document.getElementById(`h2s-node-${i}`);
     if (node) {
       node.classList.toggle('selected', i === idx);
-      if (slideInteractions[22][`prop${i}`]) {
+      if (slideInteractions[20][`prop${i}`]) {
         node.classList.remove('pulsing');
         node.classList.add('visited');
         const circle = node.querySelector('circle');
@@ -1072,7 +1084,7 @@ function selectH2SProperty(idx) {
     popup.style.display = 'block';
   }
   
-  checkSlide22Completion();
+  checkSlide20Completion();
 }
 
 function closeH2SDetailPopup() {
@@ -1081,11 +1093,11 @@ function closeH2SDetailPopup() {
   document.querySelectorAll('.h2s-node-btn').forEach(btn => btn.classList.remove('selected'));
 }
 
-function checkSlide22Completion() {
-  const steps = slideInteractions[22];
+function checkSlide20Completion() {
+  const steps = slideInteractions[20];
   if (Object.values(steps).every(v => v === true)) {
-    markSlideComplete(22);
-    const warning = document.getElementById('slide-lock-warning-22');
+    markSlideComplete(20);
+    const warning = document.getElementById('slide-lock-warning-20');
     if (warning) {
       warning.innerHTML = `<div class="lock-status-text success-glow">
         <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -1181,13 +1193,13 @@ const fireClassData = {
 };
 
 function selectFireClass(idx) {
-  slideInteractions[23][`class${idx}`] = true;
+  slideInteractions[21][`class${idx}`] = true;
   
   for (let i = 0; i < 6; i++) {
     const btn = document.getElementById(`btn-fire-class-${i}`);
     if (btn) {
       btn.classList.toggle('selected', i === idx);
-      if (slideInteractions[23][`class${i}`]) {
+      if (slideInteractions[21][`class${i}`]) {
         btn.classList.remove('pulsing');
         btn.classList.add('visited');
       }
@@ -1217,7 +1229,7 @@ function selectFireClass(idx) {
   document.getElementById('fire-class-bullets').innerHTML = listHtml;
   document.getElementById('fire-class-icon-slot').innerHTML = data.icon;
 
-  checkSlide23Completion();
+  checkSlide21Completion();
 }
 
 function closeFireClassDetail() {
@@ -1228,11 +1240,11 @@ function closeFireClassDetail() {
   document.querySelectorAll('.fire-class-card').forEach(btn => btn.classList.remove('selected'));
 }
 
-function checkSlide23Completion() {
-  const steps = slideInteractions[23];
+function checkSlide21Completion() {
+  const steps = slideInteractions[21];
   if (Object.values(steps).every(v => v === true)) {
-    markSlideComplete(23);
-    const warning = document.getElementById('slide-lock-warning-23');
+    markSlideComplete(21);
+    const warning = document.getElementById('slide-lock-warning-21');
     if (warning) {
       warning.innerHTML = `<div class="lock-status-text success-glow">
         <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -1263,14 +1275,14 @@ const tetrahedronData = {
 };
 
 function selectTetrahedronFacet(idx) {
-  slideInteractions[24][`tetra${idx}`] = true;
+  slideInteractions[22][`tetra${idx}`] = true;
   
   // Highlight facet and mark visited
   for (let i = 0; i < 4; i++) {
     const facet = document.getElementById(`tetra-facet-${i}`);
     if (facet) {
       facet.classList.toggle('selected', i === idx);
-      if (slideInteractions[24][`tetra${i}`]) {
+      if (slideInteractions[22][`tetra${i}`]) {
         facet.classList.remove('pulsing');
         facet.classList.add('visited');
       }
@@ -1289,14 +1301,14 @@ function selectTetrahedronFacet(idx) {
     card.style.display = 'block';
   }
   
-  checkSlide24Completion();
+  checkSlide22Completion();
 }
 
-function checkSlide24Completion() {
-  const steps = slideInteractions[24];
+function checkSlide22Completion() {
+  const steps = slideInteractions[22];
   if (Object.values(steps).every(v => v === true)) {
-    markSlideComplete(24);
-    const warning = document.getElementById('slide-lock-warning-24');
+    markSlideComplete(22);
+    const warning = document.getElementById('slide-lock-warning-22');
     if (warning) {
       warning.innerHTML = `<div class="lock-status-text success-glow">
         <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -1336,7 +1348,7 @@ function calculateQuizResults() {
     [false, false, false, true],
     [false, false, true, false]
   ];
-  const userGrid = selectedQuizChoices[18];
+  const userGrid = selectedQuizChoices[16];
   let matrixCorrectRows = 0;
   if (userGrid) {
     for (let r = 0; r < 4; r++) {
@@ -1401,10 +1413,10 @@ function showQuizResults() {
   }
   
   if (results.passed) {
-    markSlideComplete(25);
+    markSlideComplete(23);
   } else {
-    slideCompleted[25] = false;
-    const outline = document.getElementById('outline-item-25');
+    slideCompleted[23] = false;
+    const outline = document.getElementById('outline-item-23');
     if (outline) outline.classList.remove('completed');
     updateControls();
   }
@@ -1415,7 +1427,7 @@ function retakeQuiz() {
   selectedQuizChoices[3] = null;
   selectedQuizChoices[7] = null;
   selectedQuizChoices[11] = null;
-  selectedQuizChoices[18] = [
+  selectedQuizChoices[16] = [
     [false, false, false, false],
     [false, false, false, false],
     [false, false, false, false],
@@ -1424,9 +1436,9 @@ function retakeQuiz() {
   
   // Reset attempts
   quizAttempts[3] = 0;
-  quizAttempts[7] = 0;
-  quizAttempts[11] = 0;
-  quizAttempts[18] = 0;
+  quizAttempts[5] = 0;
+  quizAttempts[9] = 0;
+  quizAttempts[16] = 0;
   
   // Reset completion states
   [3, 7, 11, 18, 25, 26].forEach(idx => {
@@ -1455,13 +1467,13 @@ function retakeQuiz() {
     chk.disabled = false;
   });
   
-  const matrixTable = document.getElementById('quiz-matrix-container-18');
+  const matrixTable = document.getElementById('quiz-matrix-container-16');
   if (matrixTable) matrixTable.style.display = 'block';
   
-  const matrixFeedback = document.getElementById('quiz-feedback-container-18');
+  const matrixFeedback = document.getElementById('quiz-feedback-container-16');
   if (matrixFeedback) matrixFeedback.style.display = 'none';
   
-  const matrixSubmitBtn = document.getElementById('btn-quiz-submit-18');
+  const matrixSubmitBtn = document.getElementById('btn-quiz-submit-16');
   if (matrixSubmitBtn) {
     matrixSubmitBtn.disabled = true;
     matrixSubmitBtn.classList.remove('active');
@@ -1476,4 +1488,222 @@ function retakeQuiz() {
   if (certBox) certBox.style.display = 'none';
   
   goToSlide(3);
+}
+
+// ── SCORM BOOKMARK UI RESTORATION ─────────────
+function restoreSlideInteractionUI(slideIdx) {
+  if (slideIdx === 4) restoreSlide4State();
+  else if (slideIdx === 6) restoreSlide6State();
+  else if (slideIdx === 17) restoreSlide17State();
+  else if (slideIdx === 18) restoreSlide18State();
+  else if (slideIdx === 19) restoreSlide19State();
+  else if (slideIdx === 20) restoreSlide20State();
+  else if (slideIdx === 21) restoreSlide21State();
+  else if (slideIdx === 22) restoreSlide22State();
+}
+
+function restoreSlide4State() {
+  const steps = slideInteractions[4];
+  const items = document.querySelectorAll('#slide-4 .mini-timeline-item');
+  if (items.length >= 3) {
+    if (steps.step1) items[0].classList.add('visited');
+    if (steps.step2) items[1].classList.add('visited');
+    if (steps.step3) items[2].classList.add('visited');
+  }
+  const progressBar = document.getElementById('timeline-progress-bar-4');
+  if (progressBar) {
+    let visitedCount = 0;
+    if (steps.step1) visitedCount++;
+    if (steps.step2) visitedCount++;
+    if (steps.step3) visitedCount++;
+    if (visitedCount === 1) progressBar.style.height = '0%';
+    else if (visitedCount === 2) progressBar.style.height = '50%';
+    else if (visitedCount === 3) progressBar.style.height = '100%';
+  }
+  if (!isSlideLockedByInteractions(4)) {
+    const warning = document.getElementById('slide-lock-warning-4');
+    if (warning) {
+      warning.innerHTML = `<div class="lock-status-text success-glow">
+        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>CAN 100 Process unlocked! You may now navigate to the next slide.</span>
+      </div>`;
+    }
+  }
+}
+
+function restoreSlide6State() {
+  const state = slideInteractions[6];
+  
+  if (state.alarmReviewed) {
+    const gauge = document.getElementById('gauge-node-400');
+    const val = document.getElementById('gauge-val-400');
+    const badge = document.getElementById('gauge-badge-400');
+    const card = document.getElementById('sim-card-alarm');
+    const btn = document.getElementById('btn-sim-alarm');
+    
+    if (gauge) gauge.className = 'gauge-outer approved-gauge';
+    if (val) {
+      val.className = 'gauge-readout approved-glow';
+      val.innerText = '82.5';
+    }
+    if (badge) {
+      badge.className = 'gauge-status-badge approved';
+      badge.innerText = 'Approved & Locked';
+    }
+    if (card) card.classList.add('completed-state');
+    if (btn) {
+      btn.innerText = '✓ BOARD REVIEW APPROVED';
+      btn.className = 'sim-action-btn completed';
+      btn.disabled = true;
+    }
+    const reveal1 = document.getElementById('reveal-card-gatekeeping');
+    if (reveal1) reveal1.classList.add('active');
+  }
+
+  if (state.hilTested) {
+    const card = document.getElementById('sim-card-hil');
+    const btn = document.getElementById('btn-sim-hil');
+    const wrapper = document.getElementById('progress-wrapper-hil');
+    const fill = document.getElementById('progress-fill-hil');
+    const txt = document.getElementById('progress-text-hil');
+    
+    if (card) card.classList.add('completed-state');
+    if (btn) {
+      btn.innerText = '✓ HIL TESTING PASSED';
+      btn.className = 'sim-action-btn completed';
+      btn.disabled = true;
+    }
+    if (wrapper) wrapper.style.display = 'block';
+    if (fill) fill.style.width = '100%';
+    if (txt) {
+      txt.innerText = 'Test Result: PASSED (0 Errors)';
+      txt.style.color = '#10b981';
+    }
+    document.querySelectorAll('.plc-led').forEach(led => {
+      led.className = 'plc-led green glowing';
+    });
+    const reveal2 = document.getElementById('reveal-card-risk');
+    if (reveal2) reveal2.classList.add('active');
+  }
+
+  if (state.alarmReviewed && state.hilTested) {
+    const placeholder = document.getElementById('placeholder-deck-card');
+    if (placeholder) placeholder.style.display = 'none';
+    const warning = document.getElementById('slide-lock-warning-6');
+    if (warning) {
+      warning.innerHTML = `<div class="lock-status-text success-glow" style="margin-top: 15px; display: inline-flex; align-items: center; gap: 8px;">
+        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>CAN 400 workflow requirements completed! You may now navigate to the next slide.</span>
+      </div>`;
+    }
+  }
+}
+
+function restoreSlide17State() {
+  const state = slideInteractions[17];
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById(`btn-hazard-${i}`);
+    if (btn && state[`hazard${i}`]) {
+      btn.classList.remove('pulsing');
+      btn.classList.add('visited');
+    }
+  }
+  if (Object.values(state).every(v => v === true)) {
+    const warning = document.getElementById('slide-lock-warning-17');
+    if (warning) {
+      warning.innerHTML = `<div class="lock-status-text success-glow">
+        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>All respiratory hazards reviewed! You may now navigate to the next slide.</span>
+      </div>`;
+    }
+  }
+}
+
+function restoreSlide18State() {
+  const state = slideInteractions[18];
+  for (let i = 0; i < 9; i++) {
+    const btn = document.getElementById(`btn-scba-${i}`);
+    if (btn && state[`comp${i}`]) {
+      btn.classList.remove('pulsing');
+      btn.classList.add('visited');
+    }
+  }
+  if (Object.values(state).every(v => v === true)) {
+    const warning = document.getElementById('slide-lock-warning-18');
+    if (warning) {
+      warning.innerHTML = `<div class="lock-status-text success-glow">
+        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>All SCBA components inspected! You may now navigate to the next slide.</span>
+      </div>`;
+    }
+  }
+}
+
+function restoreSlide19State() {
+  const state = slideInteractions[19];
+  if (state.videoPlayed) {
+    const warning = document.getElementById('slide-lock-warning-19');
+    if (warning) {
+      warning.innerHTML = `<div class="lock-status-text success-glow">
+        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>Video watched successfully! You may now navigate to the next slide.</span>
+      </div>`;
+    }
+  }
+}
+
+function restoreSlide20State() {
+  const state = slideInteractions[20];
+  document.querySelectorAll('.h2s-node-btn').forEach((node, idx) => {
+    if (state[`prop${idx}`]) {
+      node.setAttribute('class', 'h2s-node-btn visited');
+      const circle = node.querySelector('circle');
+      if (circle) circle.style.stroke = 'var(--primary-teal-light)';
+    }
+  });
+  if (Object.values(state).every(v => v === true)) {
+    const warning = document.getElementById('slide-lock-warning-20');
+    if (warning) {
+      warning.innerHTML = `<div class="lock-status-text success-glow">
+        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>All H2S properties inspected! You may now navigate to the next slide.</span>
+      </div>`;
+    }
+  }
+}
+
+function restoreSlide21State() {
+  const state = slideInteractions[21];
+  document.querySelectorAll('.fire-class-card').forEach((card, idx) => {
+    if (state[`class${idx}`]) {
+      card.className = 'fire-class-card visited';
+    }
+  });
+  if (Object.values(state).every(v => v === true)) {
+    const warning = document.getElementById('slide-lock-warning-21');
+    if (warning) {
+      warning.innerHTML = `<div class="lock-status-text success-glow">
+        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>All fire classifications inspected! You may now navigate to the next slide.</span>
+      </div>`;
+    }
+  }
+}
+
+function restoreSlide22State() {
+  const state = slideInteractions[22];
+  document.querySelectorAll('.tetra-facet').forEach((facet, idx) => {
+    if (state[`tetra${idx}`]) {
+      facet.setAttribute('class', 'tetra-facet visited');
+    }
+  });
+  if (Object.values(state).every(v => v === true)) {
+    const warning = document.getElementById('slide-lock-warning-22');
+    if (warning) {
+      warning.innerHTML = `<div class="lock-status-text success-glow">
+        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>Fire Tetrahedron facets reviewed! You may now navigate to the next slide.</span>
+      </div>`;
+    }
+  }
 }

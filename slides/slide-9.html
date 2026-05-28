@@ -1,21 +1,86 @@
-<section id="slide-9" class="slide-pane">
-  <div class="slide-wrapper">
-    <div class="slide-col-left">
-      <h3 class="slide-main-title">CAN 600 Development</h3>
-      <p>CAN 600 represents procedural changes and operational deviations from standard manuals.</p>
-      <div class="slide-highlight-card blue">
-        <h4 class="card-highlight-title">Operational Deviations Scope:</h4>
-        <ul class="highlight-bullet-list">
-          <li>Temporary operations guidelines.</li>
-          <li>Deviations from standard operating manuals limits.</li>
-          <li>Authorized by the operations manager.</li>
-        </ul>
+<section id="slide-9" class="slide-pane slide-pane-split slide-pane-quiz">
+  <div class="slide-wrapper-split">
+    <div class="split-col-left-quiz">
+      <h3 class="quiz-main-title">Knowledge Check</h3>
+      
+      <div class="quiz-question-container">
+        <div class="quiz-q-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="9" r="1" fill="currentColor"></circle>
+            <path d="M12 13v-1a1.5 1.5 0 0 1 1.5-1.5h0A1.5 1.5 0 0 0 15 9a3 3 0 0 0-6 0"></path>
+          </svg>
+        </div>
+        <div class="quiz-q-text">
+          What color standard is used by technicians to markup field configuration differences on mechanical drawings?
+        </div>
       </div>
+
+      <div class="quiz-options-group" id="quiz-options-9">
+        <div class="quiz-option-row" onclick="selectQuizOption(11, 0, this)">
+          <div class="quiz-radio-circle"></div>
+          <span class="quiz-option-text">A. Yellow highlights</span>
+        </div>
+        <div class="quiz-option-row" onclick="selectQuizOption(11, 1, this)">
+          <div class="quiz-radio-circle"></div>
+          <span class="quiz-option-text">B. Red pencil markup</span>
+        </div>
+        <div class="quiz-option-row" onclick="selectQuizOption(11, 2, this)">
+          <div class="quiz-radio-circle"></div>
+          <span class="quiz-option-text">C. Black ink markers</span>
+        </div>
+        <div class="quiz-option-row" onclick="selectQuizOption(11, 3, this)">
+          <div class="quiz-radio-circle"></div>
+          <span class="quiz-option-text">D. Blue drafting ink</span>
+        </div>
+      </div>
+
+      <button class="btn-quiz-submit" id="btn-quiz-submit-9" onclick="submitQuizAnswer(9)" disabled>SUBMIT</button>
     </div>
-    <div class="slide-col-right">
-      <div style="background-color:#eef8ff; border-radius:12px; padding:30px; display:flex; flex-direction:column; justify-content:center; height:100%;">
-        <h5 style="margin-bottom:10px; color:var(--primary-teal); font-family:var(--font-heading);">Procedural Changes</h5>
-        <p style="font-size:0.85rem; color:#555;">Operating procedures are legal bounds. Departures must be rigorously backed by safety matrix approvals.</p>
+
+    <div class="split-col-right-teal split-col-right-quiz-bg">
+      <div class="quiz-right-bg-image" style="background-image: url('assets/drillship.png');"></div>
+      <div class="quiz-right-overlay"></div>
+      
+      <div class="quiz-feedback-card-wrapper" id="feedback-card-wrapper-9">
+        
+        <div class="quiz-feedback-card correct-card" id="quiz-correct-9">
+          <div class="feedback-icon-title-row">
+            <div class="feedback-circle-icon success">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <span class="feedback-status-title success">Correct</span>
+          </div>
+        </div>
+
+        <div class="quiz-feedback-card try-again-card" id="quiz-try-again-9">
+          <div class="feedback-icon-title-row">
+            <div class="feedback-circle-icon warning">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </div>
+            <span class="feedback-status-title warning">Please <strong>Try Again.</strong></span>
+          </div>
+          <button class="btn-quiz-retry" onclick="retryQuizQuestion(9)">Try Again</button>
+        </div>
+
+        <div class="quiz-feedback-card incorrect-card" id="quiz-incorrect-9">
+          <div class="feedback-icon-title-row">
+            <div class="feedback-circle-icon failure">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </div>
+            <span class="feedback-status-title failure">Incorrect</span>
+          </div>
+          <p class="feedback-explanation">The correct answer is B.</p>
+        </div>
+
       </div>
     </div>
   </div>

@@ -1,107 +1,21 @@
 <section id="slide-8" class="slide-pane">
   <div class="slide-wrapper">
     <div class="slide-col-left">
-      <h3 class="slide-main-title">CAN 400 Process</h3>
-      <p>The CAN 400 workflow controls process alarm limits changes and safety-critical software upgrades. Perform both simulated actions below to complete and unlock the slide.</p>
-      
-      <div class="sim-grid">
-        <!-- Simulation Card 1: Alarm Gatekeeping -->
-        <div class="sim-card" id="sim-card-alarm">
-          <h5 class="sim-card-title">DCS Alarm Review</h5>
-          <p class="sim-card-desc">Review and approve shifted alarm configuration thresholds.</p>
-          
-          <div class="gauge-outer active-gauge" id="gauge-node-400">
-            <div class="gauge-readout active-glow" id="gauge-val-400">85.2</div>
-            <div class="gauge-unit">°C Limit</div>
-            <div class="gauge-status-badge pending" id="gauge-badge-400">Pending Review</div>
-          </div>
-          
-          <button class="sim-action-btn pulsing" id="btn-sim-alarm" onclick="triggerAlarmReview()">BOARD REVIEW & APPROVE</button>
-        </div>
-        
-        <!-- Simulation Card 2: Software logic / HIL test -->
-        <div class="sim-card" id="sim-card-hil">
-          <h5 class="sim-card-title">Software HIL Simulator</h5>
-          <p class="sim-card-desc">Run safety logic code shifts through simulator hardware loops.</p>
-          
-          <div class="plc-board">
-            <div class="plc-led-grid">
-              <div class="plc-led-col">
-                <div class="plc-led" id="led-1"></div>
-                <span class="plc-led-label">PWR</span>
-              </div>
-              <div class="plc-led-col">
-                <div class="plc-led" id="led-2"></div>
-                <span class="plc-led-label">RUN</span>
-              </div>
-              <div class="plc-led-col">
-                <div class="plc-led" id="led-3"></div>
-                <span class="plc-led-label">COM</span>
-              </div>
-              <div class="plc-led-col">
-                <div class="plc-led" id="led-4"></div>
-                <span class="plc-led-label">ERR</span>
-              </div>
-            </div>
-          </div>
-          
-          <button class="sim-action-btn pulsing" id="btn-sim-hil" onclick="triggerHILTest()">RUN HIL SIMULATION</button>
-          
-          <div class="card-progress-wrapper" id="progress-wrapper-hil">
-            <div class="card-progress-bar">
-              <div class="card-progress-fill" id="progress-fill-hil"></div>
-            </div>
-            <span class="card-progress-text" id="progress-text-hil">Test Pending...</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="slide-lock-warning" id="slide-lock-warning-8" style="margin-top: 15px;">
-        <p class="lock-status-text warning-glow">⚠️ Complete both DCS alarm board review and HIL simulator testing to proceed.</p>
+      <h3 class="slide-main-title">Re-Building of CAN P&amp;ID's</h3>
+      <p>Drawing configuration integrity must be maintained. Redline drawings are committed to drafts for revision updates.</p>
+      <div class="slide-highlight-card blue">
+        <h4 class="card-highlight-title">Redline Protocol:</h4>
+        <ul class="highlight-bullet-list">
+          <li>Field technicians must physically markup drawing shifts in red.</li>
+          <li>Updates must match the as-built equipment.</li>
+          <li>Drafting clerks convert redlines to official CAD revisions.</li>
+        </ul>
       </div>
     </div>
-    
     <div class="slide-col-right">
-      <div class="unlocked-reveal-pane">
-        <!-- Default Placeholder Card -->
-        <div class="placeholder-deck-card" id="placeholder-deck-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-            <line x1="9" y1="9" x2="15" y2="9"/>
-            <line x1="9" y1="13" x2="15" y2="13"/>
-            <line x1="9" y1="17" x2="11" y2="17"/>
-          </svg>
-          <h5 class="placeholder-deck-title">Safety Requirements Locked</h5>
-          <p class="placeholder-deck-desc">Perform the reviews on the left panel to load the gatekeeping deliverables.</p>
-        </div>
-        
-        <!-- Reveal Card 1: Alarm Gatekeeping -->
-        <div class="reveal-card orange-theme" id="reveal-card-gatekeeping">
-          <div class="reveal-card-header">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-            </svg>
-            <h5 class="reveal-card-title">Alarm &amp; Software Gatekeeping</h5>
-          </div>
-          <ul class="reveal-card-bullet-list">
-            <li>DCS alarm modifications require alarm management board review.</li>
-            <li>Independent verification is required to baseline safety settings.</li>
-          </ul>
-        </div>
-        
-        <!-- Reveal Card 2: Software risk controls -->
-        <div class="reveal-card rose-theme" id="reveal-card-risk">
-          <div class="reveal-card-header">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-            <h5 class="reveal-card-title">Software Risk Control</h5>
-          </div>
-          <ul class="reveal-card-bullet-list">
-            <li>Safety logic code shifts must undergo hardware-in-the-loop (HIL) simulators testing.</li>
-            <li>Software adjustments can cascade into unexpected tripping patterns. CAN 400 ensures every logic node is assessed.</li>
-          </ul>
-        </div>
+      <div style="background-color:#fef8e8; border-radius:12px; padding:30px; display:flex; flex-direction:column; justify-content:center; height:100%;">
+        <h5 style="margin-bottom:10px; color:var(--primary-teal); font-family:var(--font-heading);">Drawing Integrity</h5>
+        <p style="font-size:0.85rem; color:#555;">P&IDs guide operations safety. Errors in drawings lead to operational hazard exposures.</p>
       </div>
     </div>
   </div>

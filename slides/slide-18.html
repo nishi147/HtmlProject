@@ -1,125 +1,69 @@
 <section id="slide-18" class="slide-pane">
-  <div style="max-width: 900px; margin: 0 auto;">
-    <h3 class="slide-main-title" style="margin-bottom: 25px;">Knowledge Check</h3>
-    
-    <div class="quiz-question-container" style="margin-bottom: 20px;">
-      <div class="quiz-q-icon" style="border-color: var(--accent-orange); background-color: rgba(242, 101, 34, 0.05);">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--accent-orange);">
-          <circle cx="12" cy="12" r="10"></circle>
-          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-          <line x1="12" y1="17" x2="12.01" y2="17"></line>
-        </svg>
-      </div>
-      <div class="quiz-q-text">
-        Select the appropriate Revision Identifier Codes for each stage. Choose all that apply.
-      </div>
-    </div>
-
-    <!-- Matrix Quiz Table -->
-    <div id="quiz-matrix-container-18">
-      <table class="quiz-matrix-table">
-        <thead>
-          <tr>
-            <th style="width: 20%;"></th>
-            <th style="width: 20%;">Review Issue<br>(EPIC)</th>
-            <th style="width: 20%;">Approved for<br>Construction Issue,<br>Approved for Purchase</th>
-            <th style="width: 20%;">Issued for Use,<br>Issued for<br>Implementation</th>
-            <th style="width: 20%;">As-Built / As-<br>Fabricated /<br>Installed</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="row-header">C1, C2, etc</td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(0, 0)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(0, 1)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(0, 2)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(0, 3)"></td>
-          </tr>
-          <tr>
-            <td class="row-header">B1, B2 etc</td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(1, 0)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(1, 1)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(1, 2)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(1, 3)"></td>
-          </tr>
-          <tr>
-            <td class="row-header">Z1, Z2, etc</td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(2, 0)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(2, 1)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(2, 2)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(2, 3)"></td>
-          </tr>
-          <tr>
-            <td class="row-header">E1, E2, etc</td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(3, 0)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(3, 1)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(3, 2)"></td>
-            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(3, 3)"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Matrix Feedback Containers -->
-    <div id="quiz-feedback-container-18" style="display: none;">
+  <div class="slide-wrapper">
+    <!-- Split Layout: 9 Vertical buttons on Left, Detail Card on Right -->
+    <div style="display: flex; gap: 25px; width: 100%; align-items: stretch; min-height: 480px;">
       
-      <!-- Correct Feedback -->
-      <div class="matrix-feedback-card correct" id="matrix-feedback-correct-18" style="display: none;">
-        <div class="matrix-feedback-header">
-          <div class="matrix-feedback-icon success">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </div>
-          <span class="matrix-feedback-title success">Correct</span>
+      <!-- Left Column: Components List -->
+      <div style="flex: 0 0 38%; display: flex; flex-direction: column; gap: 10px;">
+        <h3 class="slide-heading-text" style="font-family: var(--font-heading); color: var(--primary-teal); font-size: 1.6rem; font-weight: 700; margin-bottom: 2px;">Components of the SCBA</h3>
+        <p style="font-size: 0.9rem; color: var(--text-dark); margin-bottom: 5px;">There are nine components of the SCBA.</p>
+        <p style="font-size: 0.85rem; font-weight: 600; color: var(--accent-orange); margin-bottom: 12px;">Click on each component below to learn more.</p>
+
+        <div class="scba-components-list" style="display: flex; flex-direction: column; gap: 8px;">
+          <button class="scba-comp-btn pulsing" id="btn-scba-0" onclick="selectSCBAComponent(0)">
+            <span>Back frame and harness</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-1" onclick="selectSCBAComponent(1)">
+            <span>SCBA Reducer</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-2" onclick="selectSCBAComponent(2)">
+            <span>Mask Mounted Regulator (MMR)</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-3" onclick="selectSCBAComponent(3)">
+            <span>Universal Rescue Connection (URC)</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-4" onclick="selectSCBAComponent(4)">
+            <span>Remote gauge</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-5" onclick="selectSCBAComponent(5)">
+            <span>High pressure coupling seal</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-6" onclick="selectSCBAComponent(6)">
+            <span>Air cylinder and valve assembly (2216 psi)</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-7" onclick="selectSCBAComponent(7)">
+            <span>Air cylinder and valve assembly (4500 psi)</span>
+          </button>
+          <button class="scba-comp-btn pulsing" id="btn-scba-8" onclick="selectSCBAComponent(8)">
+            <span>Face piece</span>
+          </button>
         </div>
-        <div class="matrix-explanation-title">All stages have been correctly matched:</div>
-        <ul class="matrix-explanation-list">
-          <li>• <strong>C1, C2 etc:</strong> Approved for Construction Issue, Approved for Purchase</li>
-          <li>• <strong>B1, B2 etc:</strong> Review Issue (EPIC)</li>
-          <li>• <strong>Z1, Z2 etc:</strong> As-Built / As-Fabricated / Installed</li>
-          <li>• <strong>E1, E2 etc:</strong> Issued for Use, Issued for Implementation</li>
-        </ul>
       </div>
 
-      <!-- Try Again Feedback -->
-      <div class="matrix-feedback-card try-again" id="matrix-feedback-try-again-18" style="display: none;">
-        <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px;">
-          <div class="matrix-feedback-icon warning">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
+      <!-- Right Column: Detail Card and Images -->
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+        
+        <!-- Detail Panel (has arrow point to selected button) -->
+        <div id="scba-detail-card" class="premium-detail-card fade-in-slide-up" style="display: none; padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; min-height: 400px; border-left: 4px solid var(--primary-teal);">
+          <h4 id="scba-title" style="font-family: var(--font-heading); font-size: 1.3rem; color: var(--primary-teal); margin-bottom: 12px; font-weight: 700;">SCBA Harness / SCBA back frame and harness</h4>
+          <ul id="scba-list" class="checklist-deliverables" style="margin-bottom: 20px;">
+            <!-- filled dynamically -->
+          </ul>
+          
+          <!-- Image grid for harness component -->
+          <div id="scba-images-row" style="display: flex; gap: 15px; margin-top: auto; justify-content: center; align-items: center;">
+            <img src="assets/scba_harness.png" alt="SCBA harness 1" style="max-height: 180px; border-radius: 6px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.06);">
+            <img src="assets/scba_harness.png" alt="SCBA harness 2" style="max-height: 180px; border-radius: 6px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.06); filter: hue-rotate(30deg);">
           </div>
-          <span class="matrix-feedback-title warning">Please <strong>Try Again.</strong></span>
         </div>
-        <button class="btn-quiz-retry" onclick="retryMatrixQuestion()">Try Again</button>
-      </div>
 
-      <!-- Incorrect Feedback -->
-      <div class="matrix-feedback-card incorrect" id="matrix-feedback-incorrect-18" style="display: none;">
-        <div class="matrix-feedback-header">
-          <div class="matrix-feedback-icon failure">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </div>
-          <span class="matrix-feedback-title failure">Incorrect</span>
+        <!-- Slide unlock warning -->
+        <div id="slide-lock-warning-18" class="slide-lock-panel" style="margin-top: 15px;">
+          <p class="lock-status-text warning-glow">⚠️ Inspect all nine SCBA components on the left to proceed.</p>
         </div>
-        <div class="matrix-explanation-title">The correct answer is:</div>
-        <ul class="matrix-explanation-list">
-          <li>• <strong>C1, C2 etc:</strong> Approved for Construction Issue, Approved for Purchase</li>
-          <li>• <strong>B1, B2 etc:</strong> Review Issue (EPIC)</li>
-          <li>• <strong>Z1, Z2 etc:</strong> As-Built / As-Fabricated / Installed</li>
-          <li>• <strong>E1, E2 etc:</strong> Issued for Use, Issued for Implementation</li>
-        </ul>
+
       </div>
 
     </div>
-
-    <!-- Submit Button -->
-    <button class="btn-quiz-submit" id="btn-quiz-submit-18" onclick="submitMatrixAnswer()" disabled style="margin-left: 0; margin-top: 25px;">SUBMIT</button>
-
   </div>
 </section>

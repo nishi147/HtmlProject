@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest identifier="ManshuLearningCANProcess" version="1.0"
+          xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+          xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd
+                              http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+  <metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>1.2</schemaversion>
+  </metadata>
+  <organizations default="ManshuLearningCANProcess_Org">
+    <organization identifier="ManshuLearningCANProcess_Org">
+      <title>Change Advice Notice Process</title>
+      <item identifier="item_1" identifierref="resource_1">
+        <title>Change Advice Notice Process</title>
+      </item>
+    </organization>
+  </organizations>
+  <resources>
+    <resource identifier="resource_1" type="webcontent" adlcp:scormtype="sco" href="index.html">
+      <file href="index.html"/>
+      <file href="style.css"/>
+      <file href="js/state.js"/>
+      <file href="js/templates.js"/>
+      <file href="js/quiz.js"/>
+      <file href="js/cert.js"/>
+      <file href="js/slides.js"/>
+      <file href="js/scorm.js"/>
+      <file href="js/player.js"/>
+      <file href="assets/logo.png"/>
+      <file href="assets/drillship.png"/>
+      <file href="assets/drillship_processed.png"/>
+      <file href="assets/scba_harness.png"/>
+      <file href="assets/scissor_lift.png"/>
+      <file href="assets/brain_anatomy.png"/>
+      <file href="assets/gas_detectors.png"/>
+      <file href="assets/overview_illustration.png"/>
+      <file href="assets/quiz_results.png"/>
+      <file href="assets/C-NLOPB_Safety_Case_Guidelines.pdf"/>
+      <file href="assets/CAN_Initiation_Guideline.pdf"/>
+      <file href="assets/Risk_matrix_checklist_template.xlsx"/>
+    </resource>
+  </resources>
+</manifest>

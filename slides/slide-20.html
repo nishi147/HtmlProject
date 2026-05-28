@@ -1,67 +1,98 @@
 <section id="slide-20" class="slide-pane">
   <div class="slide-wrapper">
-    <!-- Split Layout: 9 Vertical buttons on Left, Detail Card on Right -->
-    <div style="display: flex; gap: 25px; width: 100%; align-items: stretch; min-height: 480px;">
+    <div class="slide-col-left" style="flex: 0 0 100%; display: flex; flex-direction: column; position: relative;">
       
-      <!-- Left Column: Components List -->
-      <div style="flex: 0 0 38%; display: flex; flex-direction: column; gap: 10px;">
-        <h3 class="slide-heading-text" style="font-family: var(--font-heading); color: var(--primary-teal); font-size: 1.6rem; font-weight: 700; margin-bottom: 2px;">Components of the SCBA</h3>
-        <p style="font-size: 0.9rem; color: var(--text-dark); margin-bottom: 5px;">There are nine components of the SCBA.</p>
-        <p style="font-size: 0.85rem; font-weight: 600; color: var(--accent-orange); margin-bottom: 12px;">Click on each component below to learn more.</p>
+      <h3 class="slide-heading-text" style="font-family: var(--font-heading); color: var(--primary-teal); font-size: 1.8rem; font-weight: 700; margin-bottom: 5px;">Properties of H<sub>2</sub>S</h3>
+      <p style="font-size: 0.95rem; font-weight: 600; color: var(--text-dark); margin-bottom: 25px;">
+        <strong>Action:</strong> Click the characteristics of hydrogen sulphide gas for a description of each. View them all before moving to the next page.
+      </p>
 
-        <div class="scba-components-list" style="display: flex; flex-direction: column; gap: 8px;">
-          <button class="scba-comp-btn pulsing" id="btn-scba-0" onclick="selectSCBAComponent(0)">
-            <span>Back frame and harness</span>
-          </button>
-          <button class="scba-comp-btn pulsing" id="btn-scba-1" onclick="selectSCBAComponent(1)">
-            <span>SCBA Reducer</span>
-          </button>
-          <button class="scba-comp-btn pulsing" id="btn-scba-2" onclick="selectSCBAComponent(2)">
-            <span>Mask Mounted Regulator (MMR)</span>
-          </button>
-          <button class="scba-comp-btn pulsing" id="btn-scba-3" onclick="selectSCBAComponent(3)">
-            <span>Universal Rescue Connection (URC)</span>
-          </button>
-          <button class="scba-comp-btn pulsing" id="btn-scba-4" onclick="selectSCBAComponent(4)">
-            <span>Remote gauge</span>
-          </button>
-          <button class="scba-comp-btn pulsing" id="btn-scba-5" onclick="selectSCBAComponent(5)">
-            <span>High pressure coupling seal</span>
-          </button>
-          <button class="scba-comp-btn pulsing" id="btn-scba-6" onclick="selectSCBAComponent(6)">
-            <span>Air cylinder and valve assembly (2216 psi)</span>
-          </button>
-          <button class="scba-comp-btn pulsing" id="btn-scba-7" onclick="selectSCBAComponent(7)">
-            <span>Air cylinder and valve assembly (4500 psi)</span>
-          </button>
-          <button class="scba-comp-btn pulsing" id="btn-scba-8" onclick="selectSCBAComponent(8)">
-            <span>Face piece</span>
-          </button>
+      <!-- Center container for the properties wheel -->
+      <div style="position: relative; width: 820px; height: 420px; margin: 0 auto; background: #eef4f7; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); box-shadow: var(--shadow-sm); overflow: hidden;">
+        
+        <!-- SVG properties wheel -->
+        <svg id="h2s-wheel-svg" width="600" height="400" viewBox="0 0 600 400" style="position: absolute; top: 10px; left: 110px; z-index: 2;">
+          
+          <!-- Connectors to center -->
+          <line x1="300" y1="200" x2="300" y2="70" stroke="#a0b8c6" stroke-width="3" stroke-dasharray="4 4" />
+          <line x1="300" y1="200" x2="413" y2="135" stroke="#a0b8c6" stroke-width="3" stroke-dasharray="4 4" />
+          <line x1="300" y1="200" x2="413" y2="265" stroke="#a0b8c6" stroke-width="3" stroke-dasharray="4 4" />
+          <line x1="300" y1="200" x2="300" y2="330" stroke="#a0b8c6" stroke-width="3" stroke-dasharray="4 4" />
+          <line x1="300" y1="200" x2="187" y2="265" stroke="#a0b8c6" stroke-width="3" stroke-dasharray="4 4" />
+          <line x1="300" y1="200" x2="187" y2="135" stroke="#a0b8c6" stroke-width="3" stroke-dasharray="4 4" />
+
+          <!-- Center Molecule Node -->
+          <g transform="translate(300, 200)">
+            <circle cx="0" cy="0" r="38" fill="var(--primary-teal)" stroke="#ffffff" stroke-width="4" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));" />
+            <!-- H2S text -->
+            <text x="0" y="7" font-family="var(--font-heading)" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">H₂S</text>
+            <!-- Small atoms around -->
+            <circle cx="-25" cy="-25" r="12" fill="#88b2c4" stroke="#ffffff" stroke-width="2" />
+            <text x="-25" y="-21" font-family="var(--font-heading)" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">H</text>
+            <circle cx="25" cy="-25" r="12" fill="#88b2c4" stroke="#ffffff" stroke-width="2" />
+            <text x="25" y="-21" font-family="var(--font-heading)" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">H</text>
+          </g>
+
+          <!-- Outer Nodes (Clickable Buttons) -->
+          <!-- 0: Color (Top) -->
+          <g class="h2s-node-btn pulsing" id="h2s-node-0" transform="translate(300, 70)" onclick="selectH2SProperty(0)" style="cursor: pointer;">
+            <circle cx="0" cy="0" r="32" fill="#ffffff" stroke="#5b8c9e" stroke-width="3" />
+            <text x="0" y="5" font-family="monospace" font-size="16" font-weight="bold" fill="#778c96" stroke-dasharray="2 2" text-anchor="middle">H₂S</text>
+          </g>
+
+          <!-- 1: Odor (Top-Right) -->
+          <g class="h2s-node-btn pulsing" id="h2s-node-1" transform="translate(413, 135)" onclick="selectH2SProperty(1)" style="cursor: pointer;">
+            <circle cx="0" cy="0" r="32" fill="#ffffff" stroke="#5b8c9e" stroke-width="3" />
+            <path d="M-12,-8 C-5,-15 5,-15 12,-8 C5,-4 -5,-4 -12,-8 Z" fill="#eab308" opacity="0.6"/>
+            <path d="M-15,5 C-8,0 8,0 15,5 C8,9 -8,9 -15,5 Z" fill="#eab308" opacity="0.6"/>
+            <text x="0" y="5" font-family="var(--font-heading)" font-size="10" font-weight="bold" fill="#1b3644" text-anchor="middle">H₂S</text>
+          </g>
+
+          <!-- 2: Density (Bottom-Right) -->
+          <g class="h2s-node-btn pulsing" id="h2s-node-2" transform="translate(413, 265)" onclick="selectH2SProperty(2)" style="cursor: pointer;">
+            <circle cx="0" cy="0" r="32" fill="#ffffff" stroke="#5b8c9e" stroke-width="3" />
+            <path d="M-12,12 L12,12 M0,12 L0,-8 M-8,-2 L8,-2 M-10,6 L-6,6 M6,6 L10,6" stroke="#475569" stroke-width="2" fill="none"/>
+            <text x="0" y="-3" font-family="var(--font-heading)" font-size="9" font-weight="bold" fill="#e25c38" text-anchor="middle">H₂S</text>
+          </g>
+
+          <!-- 3: Solubility (Bottom) -->
+          <g class="h2s-node-btn pulsing" id="h2s-node-3" transform="translate(300, 330)" onclick="selectH2SProperty(3)" style="cursor: pointer;">
+            <circle cx="0" cy="0" r="32" fill="#ffffff" stroke="#5b8c9e" stroke-width="3" />
+            <rect x="-12" y="-12" width="24" height="24" rx="2" fill="none" stroke="#475569" stroke-width="2" />
+            <path d="M-10,6 L10,6 L10,10 L-10,10 Z" fill="#38bdf8" />
+            <text x="0" y="0" font-family="var(--font-heading)" font-size="8" font-weight="bold" fill="#1b3644" text-anchor="middle">H₂S</text>
+          </g>
+
+          <!-- 4: Boiling Point (Bottom-Left) -->
+          <g class="h2s-node-btn pulsing" id="h2s-node-4" transform="translate(187, 265)" onclick="selectH2SProperty(4)" style="cursor: pointer;">
+            <circle cx="0" cy="0" r="32" fill="#ffffff" stroke="#5b8c9e" stroke-width="3" />
+            <rect x="-3" y="-15" width="6" height="22" rx="3" fill="none" stroke="#ef4444" stroke-width="2" />
+            <circle cx="0" cy="11" r="6" fill="#ef4444" />
+            <text x="0" y="-2" font-family="var(--font-heading)" font-size="7" font-weight="bold" fill="#ffffff" text-anchor="middle">-60°</text>
+            <text x="-15" y="-8" font-family="var(--font-heading)" font-size="8" font-weight="bold" fill="#1b3644" text-anchor="middle">H₂S</text>
+          </g>
+
+          <!-- 5: Flammability (Top-Left) -->
+          <g class="h2s-node-btn pulsing" id="h2s-node-5" transform="translate(187, 135)" onclick="selectH2SProperty(5)" style="cursor: pointer;">
+            <circle cx="0" cy="0" r="32" fill="#ffffff" stroke="#5b8c9e" stroke-width="3" />
+            <path d="M-10,12 C-10,12 -15,2 -8,-4 C-6,-2 -4,0 -2,-2 C-1,-6 5,-12 3,-2 C8,-4 10,0 8,6 C7,10 2,13 -2,12 C-6,11 -10,12 -10,12 Z" fill="#ef4444" />
+            <text x="0" y="5" font-family="var(--font-heading)" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">H₂S</text>
+          </g>
+
+        </svg>
+
+        <!-- Floating Detail Popups next to each element (absolutely positioned) -->
+        <div id="h2s-detail-popup" class="h2s-floating-card fade-in-slide-up" style="display: none; position: absolute; z-index: 10; background: #ffffff; border-radius: 6px; box-shadow: var(--shadow-lg); border: 1.5px solid var(--primary-teal); padding: 15px; width: 240px;">
+          <button onclick="closeH2SDetailPopup()" style="position: absolute; top: 6px; right: 8px; background: none; border: none; font-size: 1.1rem; font-weight: bold; color: var(--text-muted); cursor: pointer; line-height: 1;">&times;</button>
+          <h4 id="h2s-popup-title" style="font-family: var(--font-heading); font-size: 1rem; color: var(--primary-teal); font-weight: 700; margin-bottom: 5px;">COLOR</h4>
+          <p id="h2s-popup-desc" style="font-size: 0.85rem; line-height: 1.4; color: var(--text-dark); margin: 0;">Colorless, H2S is not visible.</p>
         </div>
+
       </div>
 
-      <!-- Right Column: Detail Card and Images -->
-      <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
-        
-        <!-- Detail Panel (has arrow point to selected button) -->
-        <div id="scba-detail-card" class="premium-detail-card fade-in-slide-up" style="display: none; padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; min-height: 400px; border-left: 4px solid var(--primary-teal);">
-          <h4 id="scba-title" style="font-family: var(--font-heading); font-size: 1.3rem; color: var(--primary-teal); margin-bottom: 12px; font-weight: 700;">SCBA Harness / SCBA back frame and harness</h4>
-          <ul id="scba-list" class="checklist-deliverables" style="margin-bottom: 20px;">
-            <!-- filled dynamically -->
-          </ul>
-          
-          <!-- Image grid for harness component -->
-          <div id="scba-images-row" style="display: flex; gap: 15px; margin-top: auto; justify-content: center; align-items: center;">
-            <img src="assets/scba_harness.png" alt="SCBA harness 1" style="max-height: 180px; border-radius: 6px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.06);">
-            <img src="assets/scba_harness.png" alt="SCBA harness 2" style="max-height: 180px; border-radius: 6px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.06); filter: hue-rotate(30deg);">
-          </div>
-        </div>
-
-        <!-- Slide unlock warning -->
-        <div id="slide-lock-warning-20" class="slide-lock-panel" style="margin-top: 15px;">
-          <p class="lock-status-text warning-glow">⚠️ Inspect all nine SCBA components on the left to proceed.</p>
-        </div>
-
+      <!-- Slide unlock warning -->
+      <div id="slide-lock-warning-20" class="slide-lock-panel" style="margin-top: 20px;">
+        <p class="lock-status-text warning-glow">⚠️ Click and inspect all six H2S properties above to proceed.</p>
       </div>
 
     </div>

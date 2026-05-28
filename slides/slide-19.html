@@ -1,54 +1,58 @@
 <section id="slide-19" class="slide-pane">
   <div class="slide-wrapper">
-    <div class="slide-col-left" style="flex: 0 0 100%; display: flex; flex-direction: column;">
+    <div class="slide-col-left" style="flex: 0 0 100%; display: flex; flex-direction: column; align-items: center;">
       
-      <h3 class="slide-heading-text" style="font-family: var(--font-heading); color: var(--primary-teal); font-size: 1.8rem; font-weight: 700; margin-bottom: 10px;">Four Common Respiratory Hazards</h3>
-      <p style="font-size: 1rem; line-height: 1.5; color: var(--text-dark); margin-bottom: 8px;">
-        There are four common respiratory hazards that can be found separately or in combination with each other in confined spaces, or around hazardous materials releases or fires.
-      </p>
-      <p style="font-size: 0.95rem; font-weight: 600; color: var(--accent-orange); margin-bottom: 20px;">
-        Click each button to learn more. When done, click the next button to continue.
-      </p>
+      <h3 class="slide-heading-text" style="font-family: var(--font-heading); color: var(--primary-teal); font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; align-self: flex-start;">Proper operation is important</h3>
+      
+      <!-- Simulated Video Player -->
+      <div class="simulated-video-player" id="video-player-19" style="position: relative; width: 680px; height: 380px; background: #000; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid rgba(0,0,0,0.1); margin: 15px 0 10px 0;">
+        
+        <!-- Video Poster/Content -->
+        <img id="video-frame-img" src="assets/scissor_lift.png" alt="MEWP Scissor Lift" style="width: 100%; height: 100%; object-fit: cover; transition: transform 65s linear; transform-origin: center bottom;">
+        
+        <!-- Black Overlay gradient -->
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 70%, rgba(0,0,0,0.6)); pointer-events: none;"></div>
 
-      <!-- Buttons Row -->
-      <div class="hazard-buttons-row" style="display: flex; gap: 15px; margin-bottom: 25px;">
-        <button class="hazard-btn pulsing" id="btn-hazard-0" onclick="selectHazard(0)">
-          <span>Oxygen deficiency</span>
+        <!-- Centered Play Button Overlay -->
+        <button class="video-play-overlay-btn" id="video-center-play-btn" onclick="startSimulatedVideo()" aria-label="Play video">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width: 40px; height: 40px; color: white; margin-left: 4px;">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
         </button>
-        <button class="hazard-btn pulsing" id="btn-hazard-1" onclick="selectHazard(1)">
-          <span>Elevated temperatures</span>
-        </button>
-        <button class="hazard-btn pulsing" id="btn-hazard-2" onclick="selectHazard(2)">
-          <span>Smoke or unburned products of combustion</span>
-        </button>
-        <button class="hazard-btn pulsing" id="btn-hazard-3" onclick="selectHazard(3)">
-          <span>Toxic atmospheres</span>
-        </button>
+
+        <!-- Video Bottom Control Bar -->
+        <div class="video-controls-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 45px; background: rgba(15, 23, 42, 0.85); display: flex; align-items: center; padding: 0 15px; gap: 12px; font-family: var(--font-body); color: white; font-size: 0.8rem; z-index: 10;">
+          
+          <!-- Play/Pause Button -->
+          <button id="video-bar-play-btn" onclick="toggleSimulatedVideo()" style="background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; outline: none;">
+            <svg id="video-play-svg" viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <svg id="video-pause-svg" viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px; display: none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          </button>
+
+          <!-- Current Time -->
+          <span id="video-current-time">00:00</span>
+          
+          <!-- Seek Track -->
+          <div id="video-seek-track" style="flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; position: relative; cursor: pointer;" onclick="seekSimulatedVideo(event)">
+            <div id="video-seek-fill" style="width: 0%; height: 100%; background: var(--primary-teal-light); border-radius: 3px; transition: width 0.1s linear;"></div>
+          </div>
+          
+          <!-- Duration Time -->
+          <span>01:05</span>
+          
+          <!-- Volume Icon (stub) -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke-dasharray="2 2"></path></svg>
+        </div>
+
       </div>
 
-      <!-- Detail Card (displays underneath with an arrow indicator matching selected button) -->
-      <div id="hazard-arrow-indicator" class="hazard-arrow" style="display: none;"></div>
-      <div id="hazard-detail-card" class="premium-detail-card fade-in-slide-up" style="display: none; padding: 25px; margin-top: 5px; flex-direction: row; gap: 20px; align-items: center; min-height: 300px;">
-        
-        <div class="hazard-text-content" style="flex: 1;">
-          <h4 id="hazard-title" style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--primary-teal); margin-bottom: 12px; font-weight: 700;">Oxygen Deficiency</h4>
-          <p id="hazard-desc" style="font-size: 0.95rem; line-height: 1.5; color: var(--text-muted); margin-bottom: 15px;">
-            This deficiency can lead to serious injuries including death. Please consider the following information:
-          </p>
-          <ul id="hazard-list" class="checklist-deliverables" style="margin-top: 10px;">
-            <!-- filled dynamically -->
-          </ul>
-        </div>
-        
-        <div class="hazard-image-content" style="width: 280px; display: flex; justify-content: center; align-items: center;">
-          <img id="hazard-image" src="assets/brain_anatomy.png" alt="Brain Anatomy Diagram" style="max-width: 100%; border-radius: 8px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.06);">
-        </div>
-
-      </div>
+      <p style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted); margin-bottom: 20px;">
+        Click the image above to watch the video (01:05)
+      </p>
 
       <!-- Slide unlock warning -->
-      <div id="slide-lock-warning-19" class="slide-lock-panel" style="margin-top: 20px;">
-        <p class="lock-status-text warning-glow">⚠️ Click and inspect all four respiratory hazards above to proceed.</p>
+      <div id="slide-lock-warning-19" class="slide-lock-panel" style="width: 680px;">
+        <p class="lock-status-text warning-glow">⚠️ Watch the simulated MEWP operations video to proceed.</p>
       </div>
 
     </div>

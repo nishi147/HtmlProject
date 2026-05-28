@@ -62,15 +62,15 @@ function retryQuizQuestion(slideIdx) {
   submitBtn.classList.remove('active');
 }
 
-// ── MATRIX QUIZ LOGIC (Slide 18) ────────────────
+// ── MATRIX QUIZ LOGIC (Slide 16) ────────────────
 function toggleMatrixCheckbox(row, col) {
-  if (slideCompleted[18]) return;
+  if (slideCompleted[16]) return;
 
-  selectedQuizChoices[18][row][col] = !selectedQuizChoices[18][row][col];
+  selectedQuizChoices[16][row][col] = !selectedQuizChoices[16][row][col];
 
   // Enable submit button if at least one checkbox is checked
-  const hasSelection = selectedQuizChoices[18].some(r => r.some(c => c === true));
-  const submitBtn = document.getElementById('btn-quiz-submit-18');
+  const hasSelection = selectedQuizChoices[16].some(r => r.some(c => c === true));
+  const submitBtn = document.getElementById('btn-quiz-submit-16');
   if (submitBtn) {
     if (hasSelection) {
       submitBtn.disabled = false;
@@ -83,9 +83,9 @@ function toggleMatrixCheckbox(row, col) {
 }
 
 function submitMatrixAnswer() {
-  if (slideCompleted[18]) return;
+  if (slideCompleted[16]) return;
 
-  const userGrid = selectedQuizChoices[18];
+  const userGrid = selectedQuizChoices[16];
   
   // Correct mappings:
   // Row 0 (C1, C2) -> Col 1 (Approved for Construction)
@@ -112,40 +112,40 @@ function submitMatrixAnswer() {
 
   // Hide table container, disable checkboxes
   document.querySelectorAll('.matrix-check').forEach(chk => chk.disabled = true);
-  const tableContainer = document.getElementById('quiz-matrix-container-18');
+  const tableContainer = document.getElementById('quiz-matrix-container-16');
   if (tableContainer) tableContainer.style.display = 'none';
 
-  const feedbackContainer = document.getElementById('quiz-feedback-container-18');
+  const feedbackContainer = document.getElementById('quiz-feedback-container-16');
   if (feedbackContainer) feedbackContainer.style.display = 'block';
 
   // Hide all feedback cards initially
-  document.getElementById('matrix-feedback-correct-18').style.display = 'none';
-  document.getElementById('matrix-feedback-try-again-18').style.display = 'none';
-  document.getElementById('matrix-feedback-incorrect-18').style.display = 'none';
+  document.getElementById('matrix-feedback-correct-16').style.display = 'none';
+  document.getElementById('matrix-feedback-try-again-16').style.display = 'none';
+  document.getElementById('matrix-feedback-incorrect-16').style.display = 'none';
 
-  const submitBtn = document.getElementById('btn-quiz-submit-18');
+  const submitBtn = document.getElementById('btn-quiz-submit-16');
   if (submitBtn) {
     submitBtn.disabled = true;
     submitBtn.classList.remove('active');
   }
 
   if (isCorrect) {
-    document.getElementById('matrix-feedback-correct-18').style.display = 'block';
-    markSlideComplete(18);
+    document.getElementById('matrix-feedback-correct-16').style.display = 'block';
+    markSlideComplete(16);
   } else {
-    quizAttempts[18]++;
-    if (quizAttempts[18] === 1) {
-      document.getElementById('matrix-feedback-try-again-18').style.display = 'block';
+    quizAttempts[16]++;
+    if (quizAttempts[16] === 1) {
+      document.getElementById('matrix-feedback-try-again-16').style.display = 'block';
     } else {
-      document.getElementById('matrix-feedback-incorrect-18').style.display = 'block';
-      markSlideComplete(18);
+      document.getElementById('matrix-feedback-incorrect-16').style.display = 'block';
+      markSlideComplete(16);
     }
   }
 }
 
 function retryMatrixQuestion() {
   // Reset selectedChoices matrix to all false
-  selectedQuizChoices[18] = [
+  selectedQuizChoices[16] = [
     [false, false, false, false],
     [false, false, false, false],
     [false, false, false, false],
@@ -159,13 +159,13 @@ function retryMatrixQuestion() {
   });
 
   // Hide feedback, show table
-  const feedbackContainer = document.getElementById('quiz-feedback-container-18');
+  const feedbackContainer = document.getElementById('quiz-feedback-container-16');
   if (feedbackContainer) feedbackContainer.style.display = 'none';
 
-  const tableContainer = document.getElementById('quiz-matrix-container-18');
+  const tableContainer = document.getElementById('quiz-matrix-container-16');
   if (tableContainer) tableContainer.style.display = 'block';
 
-  const submitBtn = document.getElementById('btn-quiz-submit-18');
+  const submitBtn = document.getElementById('btn-quiz-submit-16');
   if (submitBtn) {
     submitBtn.disabled = true;
     submitBtn.classList.remove('active');

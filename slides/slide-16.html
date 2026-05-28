@@ -1,21 +1,125 @@
 <section id="slide-16" class="slide-pane">
-  <div class="slide-wrapper">
-    <div class="slide-col-left">
-      <h3 class="slide-main-title">CAN Revision Types</h3>
-      <p>Revisions are categorized based on risk impacts:</p>
-      <div class="slide-highlight-card orange">
-        <h4 class="card-highlight-title">Revision Categories:</h4>
-        <ul class="highlight-bullet-list">
-          <li><strong>Major Revision</strong>: Alterations to pressure, piping specifications, or alarm logic. Requires re-assessment.</li>
-          <li><strong>Minor Revision</strong>: Typographical corrections or component vendor replacement matching original tolerances. Requires Technical Authority review only.</li>
+  <div style="max-width: 900px; margin: 0 auto;">
+    <h3 class="slide-main-title" style="margin-bottom: 25px;">Knowledge Check</h3>
+    
+    <div class="quiz-question-container" style="margin-bottom: 20px;">
+      <div class="quiz-q-icon" style="border-color: var(--accent-orange); background-color: rgba(242, 101, 34, 0.05);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--accent-orange);">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+      </div>
+      <div class="quiz-q-text">
+        Select the appropriate Revision Identifier Codes for each stage. Choose all that apply.
+      </div>
+    </div>
+
+    <!-- Matrix Quiz Table -->
+    <div id="quiz-matrix-container-16">
+      <table class="quiz-matrix-table">
+        <thead>
+          <tr>
+            <th style="width: 20%;"></th>
+            <th style="width: 20%;">Review Issue<br>(EPIC)</th>
+            <th style="width: 20%;">Approved for<br>Construction Issue,<br>Approved for Purchase</th>
+            <th style="width: 20%;">Issued for Use,<br>Issued for<br>Implementation</th>
+            <th style="width: 20%;">As-Built / As-<br>Fabricated /<br>Installed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-header">C1, C2, etc</td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(0, 0)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(0, 1)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(0, 2)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(0, 3)"></td>
+          </tr>
+          <tr>
+            <td class="row-header">B1, B2 etc</td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(1, 0)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(1, 1)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(1, 2)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(1, 3)"></td>
+          </tr>
+          <tr>
+            <td class="row-header">Z1, Z2, etc</td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(2, 0)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(2, 1)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(2, 2)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(2, 3)"></td>
+          </tr>
+          <tr>
+            <td class="row-header">E1, E2, etc</td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(3, 0)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(3, 1)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(3, 2)"></td>
+            <td><input type="checkbox" class="matrix-check" onclick="toggleMatrixCheckbox(3, 3)"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Matrix Feedback Containers -->
+    <div id="quiz-feedback-container-16" style="display: none;">
+      
+      <!-- Correct Feedback -->
+      <div class="matrix-feedback-card correct" id="matrix-feedback-correct-16" style="display: none;">
+        <div class="matrix-feedback-header">
+          <div class="matrix-feedback-icon success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <span class="matrix-feedback-title success">Correct</span>
+        </div>
+        <div class="matrix-explanation-title">All stages have been correctly matched:</div>
+        <ul class="matrix-explanation-list">
+          <li>• <strong>C1, C2 etc:</strong> Approved for Construction Issue, Approved for Purchase</li>
+          <li>• <strong>B1, B2 etc:</strong> Review Issue (EPIC)</li>
+          <li>• <strong>Z1, Z2 etc:</strong> As-Built / As-Fabricated / Installed</li>
+          <li>• <strong>E1, E2 etc:</strong> Issued for Use, Issued for Implementation</li>
         </ul>
       </div>
-    </div>
-    <div class="slide-col-right">
-      <div style="background-color:#fff3cd; border-radius:12px; padding:30px; display:flex; flex-direction:column; justify-content:center; height:100%;">
-        <h5 style="margin-bottom:10px; color:var(--primary-teal); font-family:var(--font-heading);">Change Scope Limits</h5>
-        <p style="font-size:0.85rem; color:#555;">Scope increases require major revision logs. Never slip extra modifications into minor logs.</p>
+
+      <!-- Try Again Feedback -->
+      <div class="matrix-feedback-card try-again" id="matrix-feedback-try-again-16" style="display: none;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px;">
+          <div class="matrix-feedback-icon warning">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </div>
+          <span class="matrix-feedback-title warning">Please <strong>Try Again.</strong></span>
+        </div>
+        <button class="btn-quiz-retry" onclick="retryMatrixQuestion()">Try Again</button>
       </div>
+
+      <!-- Incorrect Feedback -->
+      <div class="matrix-feedback-card incorrect" id="matrix-feedback-incorrect-16" style="display: none;">
+        <div class="matrix-feedback-header">
+          <div class="matrix-feedback-icon failure">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </div>
+          <span class="matrix-feedback-title failure">Incorrect</span>
+        </div>
+        <div class="matrix-explanation-title">The correct answer is:</div>
+        <ul class="matrix-explanation-list">
+          <li>• <strong>C1, C2 etc:</strong> Approved for Construction Issue, Approved for Purchase</li>
+          <li>• <strong>B1, B2 etc:</strong> Review Issue (EPIC)</li>
+          <li>• <strong>Z1, Z2 etc:</strong> As-Built / As-Fabricated / Installed</li>
+          <li>• <strong>E1, E2 etc:</strong> Issued for Use, Issued for Implementation</li>
+        </ul>
+      </div>
+
     </div>
+
+    <!-- Submit Button -->
+    <button class="btn-quiz-submit" id="btn-quiz-submit-16" onclick="submitMatrixAnswer()" disabled style="margin-left: 0; margin-top: 25px;">SUBMIT</button>
+
   </div>
 </section>

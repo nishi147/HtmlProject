@@ -21,7 +21,7 @@ function generateFinalCertificate() {
   document.getElementById('cert-setup-container').style.display = 'none';
   document.getElementById('final-certificate-box').style.display = 'block';
 
-  markSlideComplete(26);
+  markSlideComplete(24);
 }
 
 function restartCourseRedesign() {
@@ -30,42 +30,42 @@ function restartCourseRedesign() {
 
   slideInteractions = {
     4: { step1: false, step2: false, step3: false },
-    8: { alarmReviewed: false, hilTested: false },
-    19: { hazard0: false, hazard1: false, hazard2: false, hazard3: false },
-    20: { comp0: false, comp1: false, comp2: false, comp3: false, comp4: false, comp5: false, comp6: false, comp7: false, comp8: false },
-    21: { videoPlayed: false },
-    22: { prop0: false, prop1: false, prop2: false, prop3: false, prop4: false, prop5: false },
-    23: { class0: false, class1: false, class2: false, class3: false, class4: false, class5: false },
-    24: { tetra0: false, tetra1: false, tetra2: false, tetra3: false },
-    25: { reviewed: false }
+    6: { alarmReviewed: false, hilTested: false },
+    17: { hazard0: false, hazard1: false, hazard2: false, hazard3: false },
+    18: { comp0: false, comp1: false, comp2: false, comp3: false, comp4: false, comp5: false, comp6: false, comp7: false, comp8: false },
+    19: { videoPlayed: false },
+    20: { prop0: false, prop1: false, prop2: false, prop3: false, prop4: false, prop5: false },
+    21: { class0: false, class1: false, class2: false, class3: false, class4: false, class5: false },
+    22: { tetra0: false, tetra1: false, tetra2: false, tetra3: false },
+    23: { reviewed: false }
   };
 
   selectedQuizChoices = {
     3: null,
-    7: null,
-    11: null,
-    18: [
+    5: null,
+    9: null,
+    16: [
       [false, false, false, false],
       [false, false, false, false],
       [false, false, false, false],
       [false, false, false, false]
     ]
   };
-  quizAttempts        = { 3: 0,    7: 0,    11: 0,    18: 0    };
+  quizAttempts        = { 3: 0, 5: 0, 9: 0, 16: 0 };
 
   // Reset quiz DOM
   document.querySelectorAll('.quiz-option-row').forEach(row => row.classList.remove('selected', 'disabled'));
   document.querySelectorAll('.btn-quiz-submit').forEach(btn => { btn.disabled = true; btn.classList.remove('active'); });
   document.querySelectorAll('.quiz-feedback-card').forEach(card => card.classList.remove('active'));
 
-  // Reset slide 18 matrix elements
+  // Reset slide 16 matrix elements
   document.querySelectorAll('.matrix-check').forEach(chk => {
     chk.checked = false;
     chk.disabled = false;
   });
-  const matrixTableContainer = document.getElementById('quiz-matrix-container-18');
+  const matrixTableContainer = document.getElementById('quiz-matrix-container-16');
   if (matrixTableContainer) matrixTableContainer.style.display = 'block';
-  const matrixFeedbackContainer = document.getElementById('quiz-feedback-container-18');
+  const matrixFeedbackContainer = document.getElementById('quiz-feedback-container-16');
   if (matrixFeedbackContainer) matrixFeedbackContainer.style.display = 'none';
 
   // Reset certificate panel
@@ -97,7 +97,7 @@ function restartCourseRedesign() {
     detailBox.className = '';
   }
 
-  // Reset slide 8 interactive dashboard DOM elements
+  // Reset slide 6 interactive dashboard DOM elements
   const gauge = document.getElementById('gauge-node-400');
   const val = document.getElementById('gauge-val-400');
   const badge = document.getElementById('gauge-badge-400');
@@ -150,35 +150,35 @@ function restartCourseRedesign() {
   const placeholder = document.getElementById('placeholder-deck-card');
   if (placeholder) placeholder.style.display = 'flex';
 
-  const warning8 = document.getElementById('slide-lock-warning-8');
-  if (warning8) {
-    warning8.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Complete both DCS alarm board review and HIL simulator testing to proceed.</p>`;
-    warning8.style.display = 'block';
+  const warning6 = document.getElementById('slide-lock-warning-6');
+  if (warning6) {
+    warning6.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Complete both DCS alarm board review and HIL simulator testing to proceed.</p>`;
+    warning6.style.display = 'block';
   }
 
-  // Reset slide 19 elements
+  // Reset slide 17 elements
   document.querySelectorAll('.hazard-btn').forEach(btn => btn.className = 'hazard-btn pulsing');
   const hazardArrow = document.getElementById('hazard-arrow-indicator');
   const hazardCard = document.getElementById('hazard-detail-card');
   if (hazardArrow) hazardArrow.style.display = 'none';
   if (hazardCard) hazardCard.style.display = 'none';
-  const warning19 = document.getElementById('slide-lock-warning-19');
-  if (warning19) {
-    warning19.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Click and inspect all four respiratory hazards above to proceed.</p>`;
-    warning19.style.display = 'block';
+  const warning17 = document.getElementById('slide-lock-warning-17');
+  if (warning17) {
+    warning17.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Click and inspect all four respiratory hazards above to proceed.</p>`;
+    warning17.style.display = 'block';
   }
 
-  // Reset slide 20 elements
+  // Reset slide 18 elements
   document.querySelectorAll('.scba-comp-btn').forEach(btn => btn.className = 'scba-comp-btn pulsing');
   const scbaCard = document.getElementById('scba-detail-card');
   if (scbaCard) scbaCard.style.display = 'none';
-  const warning20 = document.getElementById('slide-lock-warning-20');
-  if (warning20) {
-    warning20.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Inspect all nine SCBA components on the left to proceed.</p>`;
-    warning20.style.display = 'block';
+  const warning18 = document.getElementById('slide-lock-warning-18');
+  if (warning18) {
+    warning18.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Inspect all nine SCBA components on the left to proceed.</p>`;
+    warning18.style.display = 'block';
   }
 
-  // Reset slide 21 elements
+  // Reset slide 19 elements
   if (videoInterval) clearInterval(videoInterval);
   videoProgress = 0;
   isVideoPlaying = false;
@@ -192,13 +192,13 @@ function restartCourseRedesign() {
   if (frameImg) {
     frameImg.style.transform = 'scale(1) translateY(0)';
   }
-  const warning21 = document.getElementById('slide-lock-warning-21');
-  if (warning21) {
-    warning21.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Watch the simulated MEWP operations video to proceed.</p>`;
-    warning21.style.display = 'block';
+  const warning19 = document.getElementById('slide-lock-warning-19');
+  if (warning19) {
+    warning19.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Watch the simulated MEWP operations video to proceed.</p>`;
+    warning19.style.display = 'block';
   }
 
-  // Reset slide 22 elements
+  // Reset slide 20 elements
   document.querySelectorAll('.h2s-node-btn').forEach(node => {
     node.setAttribute('class', 'h2s-node-btn pulsing');
     const circle = node.querySelector('circle');
@@ -206,13 +206,13 @@ function restartCourseRedesign() {
   });
   const popup22 = document.getElementById('h2s-detail-popup');
   if (popup22) popup22.style.display = 'none';
-  const warning22 = document.getElementById('slide-lock-warning-22');
-  if (warning22) {
-    warning22.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Click and inspect all six H2S properties above to proceed.</p>`;
-    warning22.style.display = 'block';
+  const warning20 = document.getElementById('slide-lock-warning-20');
+  if (warning20) {
+    warning20.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Click and inspect all six H2S properties above to proceed.</p>`;
+    warning20.style.display = 'block';
   }
 
-  // Reset slide 23 elements
+  // Reset slide 21 elements
   document.querySelectorAll('.fire-class-card').forEach(card => {
     card.className = 'fire-class-card pulsing';
   });
@@ -220,25 +220,25 @@ function restartCourseRedesign() {
   if (card23) card23.style.display = 'none';
   const arrow23 = document.getElementById('fire-class-arrow');
   if (arrow23) arrow23.style.display = 'none';
-  const warning23 = document.getElementById('slide-lock-warning-23');
-  if (warning23) {
-    warning23.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Click and inspect all six fire classifications above to proceed.</p>`;
-    warning23.style.display = 'block';
+  const warning21 = document.getElementById('slide-lock-warning-21');
+  if (warning21) {
+    warning21.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Click and inspect all six fire classifications above to proceed.</p>`;
+    warning21.style.display = 'block';
   }
 
-  // Reset slide 24 elements
+  // Reset slide 22 elements
   document.querySelectorAll('.tetra-facet').forEach(facet => {
     facet.setAttribute('class', 'tetra-facet pulsing');
   });
   const card24 = document.getElementById('tetra-detail-card');
   if (card24) card24.style.display = 'none';
-  const warning24 = document.getElementById('slide-lock-warning-24');
-  if (warning24) {
-    warning24.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Click and inspect all four facets of the Fire Tetrahedron to proceed.</p>`;
-    warning24.style.display = 'block';
+  const warning22 = document.getElementById('slide-lock-warning-22');
+  if (warning22) {
+    warning22.innerHTML = `<p class="lock-status-text warning-glow">⚠️ Click and inspect all four facets of the Fire Tetrahedron to proceed.</p>`;
+    warning22.style.display = 'block';
   }
 
-  // Reset slide 25 elements
+  // Reset slide 23 elements
   const scoredEl = document.getElementById('results-scored');
   const maxEl = document.getElementById('results-max');
   const correctEl = document.getElementById('results-correct');
